@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon"
+          type="image/png"
+          href="~/Content/Images/validationfavicon1.png">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Validation - Start Validating Now</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/LandingPage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link href="~/Content/LandingPage/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="~/Content/LandingPage/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" />
+    <!--Custom CSS-->
+    <link href="~/Content/LandingPage/css/creative.css" rel="stylesheet" />
+    <!-- Theme CSS -->
+    <link href="~/Content/LandingPage/css/creative.min.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Scripts/LandingPageJS/dropdown.js"></script>
+
+    <!--Registration Popup-->
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  @*<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/reset.css">*@
+
+    <link href="~/Content/Registration/css/formstyle.css" rel="stylesheet" />
+
+    <link href="~/Content/Registration/css/style.css" rel="stylesheet" />
+    @*<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>*@
+    <script src="~/Content/Registration/js/index.js"></script>
+
+    <!--form validation-->
+    @*<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.4.min.js"></script>*@
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+    <!--<script src="~/Content/Registration/js/validateloginform.js"></script>-->
+</head>
+
+<body id="page-top" ng-app="myApp" class="ng-cloak">
+    <script>
+    </script>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Start Validating</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li class="current-page-item ">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="sessionStorage.signup=false">Login</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/Validation/RegisterUser" onclick="sessionStorage.admin='Admin'"><i class="fa fa-fw fa-user"></i> Login as Admin</a>
+                            </li>
+                            <li>
+                                <a href="/Validation/RegisterUser" onclick="sessionStorage.executor = 'Executor'"><i class="fa fa-fw fa-user"></i>Login as Operator</a>
+                            </li>
+                            <li>
+                                <a href="/Validation/RegisterUser" onclick="sessionStorage.editor = 'Editor'"><i class="fa fa-fw fa-user"></i>Login as Manager</a>
+                            </li>
+                        </ul>
+                    </li>*@
+
+                    <li><a class="cd-signin" href="?#">Sign in</a></li>
+                    <li><a class="cd-signup" href="?#">Sign up</a></li>
+                   
+                    @*<li>
+                        <a class="page-scroll" href="#login" onclick="sessionStorage.signup=true">SignUp</a>
+                    </li>*@
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+ 
+        <div class="cd-user-modal">
+            <!-- this is the entire modal form, including the background -->
+            <div class="cd-user-modal-container">
+                <!-- this is the container wrapper -->
+                <ul class="cd-switcher">
+                    <li><a href="?#0">Sign in</a></li>
+                    <li><a href="?#0">New account</a></li>
+                </ul>
+                <div ng-show="loadingimage" id="loading">
+                    <img id="loading-image" src="~/Content/Registration/Image/loading-image.gif" alt="Loading..." />
+                </div>
+                <div ng-controller="LoginController">
+                    <div id="cd-login">
+                        <!-- log in form -->
+                        <form action="" class="cd-form" id="login" name="login" ng-submit="LoginForm()">
+                            <p class="fieldset">
+                                <label class="image-replace cd-email" for="signin-email">E-mail</label>
+                                <input class="full-width has-padding has-border" id="email" type="email" placeholder="E-mail" ng-model="UserModel.Useremail" required>
+                                @*<span class="cd-error-message">Error message here!</span>*@
+                            </p>
+                            <p class="fieldset">
+                                <label class="image-replace cd-password" for="signin-password">Password</label>
+                                <input class="full-width has-padding has-border" id="password" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" required ng-model="UserModel.password">
+                                <a href="#0" class="hide-password">Show</a>
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+                            <p class="fieldset">
+                                <label class="image-replace cd-username" for="signup-username">Role</label>
+                                <input class="has-padding has-border" id="role" type="text" placeholder="-Role Select-" list="rolelist" ng-model="UserModel.Role" required>
+                                <datalist id="rolelist">
+                                    <option value="Admin">
+                                    <option value="Manager">
+                                    <option value="Operator">
+                                </datalist>
+                                @*<span class="cd-error-message">Error message here!</span>*@
+                            </p>
+                            <p class="fieldset">
+                                <input type="checkbox" id="remember-me" checked>
+                                <label for="remember-me">Remember me</label>
+                            </p>
+                            <p class="fieldset">
+                                <input class="full-width" type="submit" value="Login">
+                            </p>
+                        </form>
+
+                        <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+                    </div> <!-- cd-login -->
+                </div>
+                <div ng-controller="RegistrationController">
+                        <div id="cd-signup">
+                            <!-- sign up form -->
+
+                            <form action="" class="cd-form" id="registration" name="registration" ng-submit="Registerform()">
+                                <h6>{{errormessage}}</h6>
+                                <p class="fieldset">
+                                    <label class="image-replace cd-username" for="signup-username">Name</label>
+                                    <input class="full-width has-padding has-border" id="firstname" type="text" placeholder="Name" minlength="3" ng-model="UserModel.fullName" required>
+                                    <span class="cd-error-message">Error message here!</span>
+                                </p>
+                                <p class="fieldset">
+                                    <label class="image-replace cd-email" for="signup-email">E-mail</label>
+                                    <input class="full-width has-padding has-border" id="email" type="email" placeholder="E-mail" ng-model="UserModel.Useremail" required>
+                                    @*<span class="cd-error-message">Error message here!</span>*@
+                                </p>          
+                                <p class="fieldset">
+                                    <label class="image-replace cd-password" for="signup-password">Password</label>
+                                    <input class="full-width has-padding has-border" id="password1" type="password" minlength="5" placeholder="password" ng-model="UserModel.password" required>
+                                    <a href="#0" class="hide-password">Show</a>
+                                    <span class="cd-error-message">Error message here!</span>
+                                </p>
+                                <p class="fieldset">
+                                    <label class="image-replace cd-password" for="signup-password">Confirm Password</label>
+                                    <input class="full-width has-padding has-border" id="password_again" type="password" minlength="5" placeholder="Confirm password" required>
+                                    <a href="#0" class="hide-password">Show</a>
+                                    <span class="cd-error-message">Error message here!</span>
+                                    <span id='message'></span>
+                                </p>
+                                <p class="fieldset">
+                                    <label class="image-replace cd-username" for="signup-username">Role</label>
+                                    <input class="has-padding has-border" id="role" type="text" placeholder="-Role Select-" list="rolelist" ng-model="UserModel.Role" required>
+                                    <datalist id="rolelist">
+                                        <option value="Admin">
+                                        <option value="Manager">
+                                        <option value="Operator">
+                                    </datalist>
+                                    @*<span class="cd-error-message">Error message here!</span>*@
+                                </p>
+                                <p class="fieldset">
+                                    <input type="checkbox" id="accept-terms" required>
+                                    <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+                                </p>
+                                <p class="fieldset">
+                                    <input class="full-width" type="submit" value="Create account">
+                                </p>
+                            </form>
+                            <!-- <a href="#0" class="cd-close-form">Close</a> -->
+                        </div> <!-- cd-signup -->
+                    </div>
+                <div id="cd-reset-password">
+                        <!-- reset password form -->
+                        <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+                        <form class="cd-form">
+                            <p class="fieldset">
+                                <label class="image-replace cd-email" for="reset-email">E-mail</label>
+                                <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+                            <p class="fieldset">
+                                <input class="full-width has-padding" type="submit" value="Reset password">
+                            </p>
+                        </form>
+                        <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
+                    </div> <!-- cd-reset-password -->
+               <a href="#0" class="cd-close-form">Close</a>
+                </div> <!-- cd-user-modal-container -->
+        </div> <!-- cd-user-modal -->
+   
+        @RenderBody();
+        <!-- jQuery -->
+        <script src="~/Scripts/LandingPageJS/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/Content/LandingPage/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+        <script src="~/Content/LandingPage/vendor/scrollreveal/scrollreveal.min.js"></script>
+        <script src="~/Content/LandingPage/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <!-- Theme JavaScript -->
+        <script src="~/Scripts/LandingPageJS/creative.min.js"></script>
+        <script>
+            $('#password1,#password_again').on('focusout', function () {
+                if ($('#password1').val() != '' && $('#password_again').val() != '')
+                {
+                    if ($('#password1').val() == $('#password_again').val()) {
+                        $('#message').html('Password Matched').css('color', 'green');
+                    }
+                    else {
+                        $('#message').html('Password not Matched').css('color', 'red');
+                    }
+                }
+                
+
+            });
+        </script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/AngularController/Module.js"></script>
+    <script src="~/AngularController/Controller.js"></script>
+    <script src="~/AngularController/Service.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication1.Models.PipeLineStage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<script src="~/Scripts/angular.js"></script>
+
+<script src="~/AngularController/Module.js"></script>
+
+<script src="~/AngularController/Service.js"></script>
+
+<script src="~/AngularController/Controller.js"></script>
+
+
+<div id="content" ng-controller="AppController">
+
+    <table class="table table-striped">
+        <thead>
+
+            <tr>
+
+                <td>PipelineStageId</td>
+                <td>PipelineStage</td>
+                <td>PipelineStageDescription</td>
+                <td>CreatedDate</td>
+                <td>CreatedBy</td>
+                <td>Action</td>
+
+            </tr>
+
+        </thead>
+
+        <tr ng-repeat="ps in stages">
+            <td>{{ps.PipelineStageId}}</td>
+            <td>{{ps.PipelineStage1}}</td>
+            <td>{{ps.PipelineStageDescription}}</td>
+            <td>{{ps.CreatedDate | date}}</td>
+            <td>{{ps.CreatedBy}}</td>
+            <td>
+                <span class="glyphicon glyphicon-pencil" ng-click="showEdit"></span>
+            </td>
+        </tr>
+    </table>
+
+
+
+</div>
+
+

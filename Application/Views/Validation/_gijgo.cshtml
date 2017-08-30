@@ -1,0 +1,457 @@
+﻿
+
+ <div class="col-lg-12">
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <i class="fa fa-dashboard"></i> Table
+                        </li>
+                    </ol>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="gj-float-right">
+
+            <form class="display-inline">
+                @*<button id="btnSchedular" type="button" class="gj-button-md" style="color:#e45200;">Events</button>*@
+
+                <input id="txtTestsuite" type="text" placeholder="TestSuitename..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+                IsActive&nbsp;<input id="txtIsactive" type="checkbox" class="gj-display-inline-block" />
+
+                <button id="btnSearch" type="button" class="gj-button-md" style="color:#e45200;">Search</button>
+                <button id="btnClear" type="button" class="gj-button-md">Clear</button>
+            </form>
+        </div>
+        <div class="gj-float-left">
+            <button id="btnAdd" type="button" class="gj-button-md" style="color:#e45200;"><span class="material-icons gj-cursor-pointer">add</span><b>Add New TestSuite</b></button>
+
+        </div>
+        <div class="container-full" style="background-color:#eae8e8;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <table id="grid" data-primary-key="TestSuiteId"></table>
+                </div>
+            </div>
+        </div>
+
+        @*//shedular dialog*@
+        <div id="dialogschedular" class="gj-display-none">
+            <div id="scheduler"></div>
+        </div>
+        @*//Testsuite dialog*@
+        <div id="dialog" class="gj-display-none">
+            <div data-role="body">
+                <input type="hidden" id="TestSuiteId" />
+                <div class="">
+                    <label>TestStuite Name</label>
+                    <input type="text" class="gj-textbox-md" id="TestSuite1">
+                </div>
+                <div class="">
+                    <label>TestStuite Description</label>
+                    <input type="text" class="gj-textbox-md" id="TestSuiteDescription" />
+                </div>
+                <div class="">
+                    <label>IsActive</label>
+                    <input type="checkbox" class="gj-checkbox-md" id="IsActive" />
+                </div>
+                <div class="">
+                    <label>TestStuite Owner</label>
+                    <input type="text" class="gj-textbox-md" id="TestSuiteOwner" />
+                </div>
+                <div class="">
+                    @*<label>CreatedDate</label>*@
+                    <input type="hidden" class="gj-textbox-md" id="CreatedDate" />
+                </div>
+                <div class="">
+                    <label>CreateBy</label>
+                    <input type="text" class="gj-textbox-md" id="CreatedBy" />
+                </div>
+            </div>
+            <div data-role="footer">
+                <button type="button" id="btnSave" class="gj-button-md">Save</button>
+                <button type="button" id="btnUpdate" class="gj-button-md">Update</button>
+                <button type="button" id="btnDelete" class="gj-button-md">Delete</button>
+                <button type="button" id="btnCancel" class="gj-button-md">Cancel</button>
+            </div>
+        </div>
+        @*//Testcase dialog*@
+        <div id="dialogTestCase" class="gj-display-none">
+            <div data-role="body">
+                <input type="hidden" id="TestCaseId" />
+                <div class="">
+                    <label>TestCase Name</label>
+                    <input type="text" class="gj-textbox-md" id="TestCaseName">
+                </div>
+                <div class="">
+                    <label>PipelineStageId</label>
+                    <input type="text" class="gj-textbox-md" id="PipelineStageId">
+                </div>
+                <div class="">
+                    <label>TestCaseTypeId</label>
+                    <input type="text" class="gj-textbox-md" id="TestCaseTypeId">
+                </div>
+                <div class="">
+                    <label>TestSuite Description</label>
+                    <input type="text" class="gj-textbox-md" id="Description" />
+                </div>
+                <div class="">
+                    <label>IsActive</label>
+                    <input type="checkbox" class="gj-checkbox-md" id="IsActive1" />
+                </div>
+                <div class="">
+                    <label>IsObsolete</label>
+                    <input id="IsObsolete" type="checkbox" class="gj-checkbox-bootstrap" onclick="showMe('Obsolete', this)">
+                </div>
+                <div id="Obsolete" class="gj-display-none">
+                    <label>Obsolete Reason</label>
+                    <input type="text" class="gj-textbox-md" id="ObsoleteReason" />
+                </div>
+                <div class="">
+                    @*<label>CreatedDate</label>*@
+                    <input type="hidden" class="gj-textbox-md" id="CreatedDate" />
+                </div>
+                <div class="">
+                    <label>CreateBy</label>
+                    <input type="text" class="gj-textbox-md" id="CreatedBy" />
+                </div>
+            </div>
+            <div data-role="footer">
+                <button type="button" id="tbtnCancel" class="gj-button-md">Cancel</button>
+                <button type="button" id="tbtnSave" class="gj-button-md">Save</button>
+                <button type="button" id="tbtnDelete" class="gj-button-md">Delete</button>
+                <button type="button" id="tbtnUpdate" class="gj-button-md">Update</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+            var grid, dialog, dialogtest;
+            function Popup(e) {
+                var dt = new Date(parseInt(e.data.record.CreatedDate.substr(6)));
+                $('#TestSuiteId').val(e.data.id);
+                $('#TestSuite1').val(e.data.record.TestSuite1);
+                $('#TestSuiteDescription').val(e.data.record.TestSuiteDescription);
+                $('#IsActive').prop('checked', e.data.record.IsActive);
+                $('#TestSuiteOwner').val(e.data.record.TestSuiteOwner);
+                $('#CreatedDate').val(dt);
+                $('#CreatedBy').val(e.data.record.CreatedBy);
+                $('#btnUpdate').show();
+                $('#btnDelete').show();
+                $('#btnSave').hide();
+                dialog.open('TestSuite');
+            }
+            function Popuptest(e) {
+                var dt = new Date(parseInt(e.data.record.CreatedDate.substr(6)));
+                $('#TestCaseId').val(e.data.id);
+                $('#TestSuiteId').val(e.data.record.TestSuiteId);
+                $('#PipelineStageId').val(e.data.record.PipelineStageId);
+                $('#TestCaseTypeId').val(e.data.record.TestCaseTypeId);
+                $('#TestCaseName').val(e.data.record.TestCaseName);
+                $('#Description').val(e.data.record.Description);
+                $('#IsActive1').prop('checked', e.data.record.IsActive);
+                $('#IsObsolete').prop('checked', e.data.record.IsObsolete);
+                $('#ObsoleteReason').val(e.data.record.ObsoleteReason);
+                $('#CreatedDate').val(dt);
+                $('#CreatedBy').val(e.data.record.CreatedBy);
+                $('#tbtnUpdate').show();
+                $('#tbtnDelete').show();
+                $('#tbtnSave').hide();
+                dialogtest.open('TestCase');
+            }
+            function Save() {
+                var record = {
+                    TestSuiteId: $('#TestSuiteId').val(),
+                    TestSuite1: $('#TestSuite1').val(),
+                    TestSuiteDescription: $('#TestSuiteDescription').val(),
+                    IsActive: $('#IsActive').prop('checked'),
+                    TestSuiteOwner: $('#TestSuiteOwner').val(),
+                    CreatedDate: $('#CreatedDate').val(),
+                    CreatedBy: $('#CreatedBy').val(),
+                };
+                if (record.TestSuiteId != 0) {
+
+                    $.ajax({ url: '/Validation/UpdateTestSuite', data: record, method: 'POST' })
+                    .done(function () {
+                        var $log = $("#lalert"),
+                        str = "<p class='alert alert-dismissable'>TestSuite Updated Successfully<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</A></p>"
+                        html = $.parseHTML(str),
+                       nodeNames = [];
+                        // Append the parsed HTML
+                        $log.append(html);
+                        dialog.close();
+                        grid.reload();
+                    })
+                    .fail(function () {
+                        $('#lerror').text('We cant delete the this item which is referencing in other tables')
+                        dialog.close();
+                    });
+                }
+                else {
+
+                    $.ajax({ url: '/Validation/SaveTestSuite', data: record, method: 'POST' })
+                   .done(function () {
+                       //alert(JSON.stringify(response.success));
+                       //if (response.success == false) {
+                       //    alert("Problem in saving Testsuite")
+                       //};
+
+                       dialog.close();
+                       grid.reload();
+                   })
+                   .fail(function () {
+                       alert('Failed to save.');
+                       dialog.close();
+                   });
+                }
+
+            }
+            function Delete() {
+                var record = {
+                    TestSuiteId: $('#TestSuiteId').val(),
+                    TestSuite1: $('#TestSuite1').val(),
+                    TestSuiteDescription: $('#TestSuiteDescription').val(),
+                    TestSuiteOwner: $('#TestSuiteOwner').val(),
+                    CreatedDate: $('#CreatedDate').val(),
+                    CreateBy: $('#CreateBy').val(),
+                };
+
+                $.ajax({ url: '/Validation/DeleteTestSuite', data: record, method: 'POST' })
+                              .done(function () {
+                                  dialog.close();
+                                  grid.reload();
+
+                              })
+                              .fail(function () {
+                                  alert('Failed to delete.');
+                              });
+
+            }
+
+            function Savetestcase() {
+                var record = {
+                    TestSuiteId: $('#TestSuiteId').val(),
+                    TestCaseId: $('#TestCaseId').val(),
+                    TestCaseName: $('#TestCaseName').val(),
+                    PipelineStageId: $('#PipelineStageId').val(),
+                    TestCaseTypeId: $('#TestCaseTypeId').val(),
+                    Description: $('#Description').val(),
+                    IsActive: $('#IsActive1').prop('checked'),
+                    IsObsolete: $('#IsObsolete').prop('checked'),
+                    ObsoleteReason: $('#ObsoleteReason').val(),
+                    CreatedDate: $('#CreatedDate').val(),
+                    CreatedBy: $('#CreatedBy').val(),
+                };
+
+                if (record.TestCaseId != 0) {
+                    $.ajax({ url: '/Validation/kendoUpdateGettestcases', data: record, method: 'POST' })
+                    .done(function () {
+                        var $log = $("#lalert"),
+                        str = "<p class='alert alert-dismissable'>TestSuite Updated Successfully<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</A></p>"
+                        html = $.parseHTML(str),
+                       nodeNames = [];
+                        // Append the parsed HTML
+                        $log.append(html);
+                        dialogtest.close();
+                        grid.reload();
+                    })
+                    .fail(function () {
+                        $('#lerror').text('We cant delete the this item which is referencing in other tables')
+                        dialogtest.close();
+                    });
+                }
+                else {
+                    $.ajax({ url: '/Validation/kendosaveGettestcases', data: record, method: 'POST' })
+                   .done(function () {
+                       //alert(JSON.stringify(response.success));
+                       //if (response.success == false) {
+                       //    alert("Problem in saving Testsuite")
+                       //};
+
+                       dialog.close();
+                       grid.reload();
+                   })
+                   .fail(function () {
+                       alert('Failed to save.');
+                       dialog.close();
+                   });
+                }
+
+            }
+            function DeleteTestcase() {
+                var record = {
+                    TestCaseId: $('#TestCaseId').val(),
+                };
+                $.ajax({ url: '/Validation/DeleteTestCase', data: record, method: 'POST' })
+                              .done(function () {
+                                  dialogtest.close();
+                                  grid.reload();
+
+                              })
+                              .fail(function () {
+                                  alert('Failed to delete.');
+                              });
+
+            }
+            function showMe(it, box) {
+                var vis = (box.checked) ? "block" : "none";
+                document.getElementById(it).style.display = vis;
+            }
+            $(document).ready(function () {
+                grid = $('#grid').grid({
+                    primaryKey: 'TestSuiteId',
+                    uiLibrary: 'bootstrap4',
+                    iconsLibrary: 'fontawesome',
+                    dataSource: '/Validation/jqueryGettestsuites',
+
+                    columns: [
+                        { field: 'TestSuiteId', sortable: true, width: 64,title:'Id' },
+                        { field: 'TestSuite1', sortable: true, editor: false, title: 'TestSuiteName' },
+                        { field: 'TestSuiteDescription', editor: false },
+                        { field: 'IsActive', editor: false, width: 80 },
+                        { field: 'TestSuiteOwner', editor: false },
+                        { field: 'CreatedDate', title: 'Created Date', type: 'date', format: 'mm/dd/yyyy', sortable: true, editor: true, width: 120 },
+                        { field: 'CreatedBy', title: 'Created By', width: 120 },
+                        { width: 64, tmpl: '<span class="material-icons gj-cursor-pointer">edit</span>', align: 'center', events: { 'click': Popup } },
+                        //{ width: 64, tmpl: '<span class="material-icons gj-cursor-pointer">delete</span>', align: 'center', events: { 'click': Popup } }
+                    ],
+                    pager: { limit: 8 },
+
+                    detailTemplate: ' <div id="subgri" style="width:100%;padding-left:3em" class="col-lg-12 col-md-12"><form class="display-inline"><input id="txtTestcase" type="text" placeholder="Testcasename..." class="gj-textbox-md gj-display-inline-block gj-width-200" />IsActive &nbsp;<input id="xtIsactive" type="checkbox"class="gj-display-inline-block"/>&nbsp;&nbsp;&nbsp;&nbsp;IsObsolete&nbsp;<input id="xtIsObsolete" type="checkbox"class="gj-display-inline-block"/><button id="tbtnSearch" type="button" class="gj-button-md" style="color:#e45200;">Search</button><button id="tbtnClear" type="button" class="gj-button-md">Clear</button></form><table/></div>'
+
+                });
+                grid.on('detailExpand', function (e, $detailWrapper, id) {
+                    var subgrid = $detailWrapper.find('table').grid({
+                        params: { Id: id },
+                        uiLibrary: 'bootstrap4',
+                        iconsLibrary: 'fontawesome',
+                        primaryKey: 'TestCaseId',
+                        //inlineEditing: { mode: 'command' },
+                        dataSource: '/Validation/jqueryGettestcases',
+                        columns: [
+                        { field: 'TestCaseId', sortable: true, title: 'Id', width: 50 },
+                         { field: 'PipelineStageId', title: 'StageId', sortable: true, width: 80 },
+                        { field: 'TestCaseTypeId', sortable: true, width: 80 },
+                        { field: 'Description', sortable: true, width: 200 },
+                        { field: 'TestSuiteId', hidden: 'true', width: 80 },
+                        { field: 'TestCaseName', sortable: true, width: 200 },
+                         { field: 'IsActive', title: 'Active', sortable: true, width: 80 },
+                        { field: 'IsObsolete', title: 'Obsolete', sortable: true, width: 80 },
+                        { field: 'ObsoleteReason', width: 200 },
+                        { width: 50, tmpl: '<span class="material-icons gj-cursor-pointer">edit</span>', align: 'center', events: { 'click': Popuptest } }
+                        ],
+                        pager: { limit: 5 }
+
+
+                    });
+                    subgrid.on('rowDataChanged', function (e, id, record) {
+                        alert(JSON.stringify(record)),
+                        $.ajax({ url: '/Validation/kendoUpdateGettestcases', data: record, method: 'POST' })
+                            .done(function () {
+                                grid.reload();
+                            })
+                            .fail(function () {
+                                alert('Failed to save.');
+                            });
+                    });
+                    $('#tbtnSearch').on('click', function () {
+                        subgrid.reload({ page: 1, TestCaseName: $('#txtTestcase').val(), IsActive: $('#xtIsactive').prop('checked'), IsObsolete: $('#xtIsObsolete').prop('checked') });
+                    });
+                    $('#tbtnClear').on('click', function () {
+                        $('#txtTestcase').val('');
+                        $('#xtIsactive').prop('checked', false);
+                        $('#xtIsObsolete').prop('checked', false);
+                        subgrid.reload({ page: 1, TestCaseName: '', IsActive: '',IsObsolete:''});
+                    });
+                });
+                grid.on('detailCollapse', function (e, $detailWrapper, id) {
+                    $detailWrapper.find('table').grid('destroy', true, true);
+                });
+
+                grid.on('rowDataChanged', function (e, id, record) {
+                    //alert(JSON.stringify(record)),
+                    $.ajax({ url: '/Validation/UpdateTestSuite', data: record, method: 'POST' })
+                        .done(function () {
+                            grid.reload();
+                        })
+                        .fail(function () {
+                            alert('Failed to save.');
+                        });
+                });
+                grid.on('rowRemoving', function (e, $row, id, record) {
+                    //alert(JSON.stringify(id));
+                    if (confirm('Are you sure?')) {
+                        $.ajax({ url: '/Validation/DeleteTestSuite', data: record, method: 'POST' })
+                            .done(function () {
+                                grid.reload();
+                            })
+                            .fail(function () {
+                                alert('Failed to delete.');
+                            });
+                    }
+                });
+
+                dialog = $('#dialog').dialog({
+                    uiLibrary: 'bootstrap4',
+                    autoOpen: false,
+                    resizable: false,
+                    modal: true,
+                    width: 360
+                });
+                dialogtest = $('#dialogTestCase').dialog({
+                    uiLibrary: 'bootstrap',
+                    autoOpen: false,
+                    resizable: false,
+                    modal: true,
+                    width: 360
+                });
+                dialogsched = $('#dialogschedular').dialog({
+                    uiLibrary: 'bootstrap',
+                    autoOpen: false,
+                    resizable: true,
+                    modal: false,
+                    height: 500,
+                    width: 650
+                });
+                $('#btnAdd').on('click', function () {
+                    $('#TestSuiteId').val(0);
+                    $('#TestSuite1').val('');
+                    $('#TestSuiteDescription').val('');
+                    $('#IsActive').val(false);
+                    $('#TestSuiteOwner').val('');
+                    $('#CreatedDate').val('');
+                    $('#CreatedBy').val('');
+                    $('#btnUpdate').hide();
+                    $('#btnDelete').hide();
+                    $('#btnSave').show();
+                    dialog.open('Create TestSuite');
+                });
+                $('#btnSave').on('click', Save);
+                $('#btnUpdate').on('click', Save);
+                $('#btnDelete').on('click', Delete);
+                $('#btnCancel').on('click', function () {
+                    dialog.close();
+                });
+                $('#tbtnSave').on('click', Savetestcase);
+                $('#tbtnUpdate').on('click', Savetestcase);
+                $('#tbtnDelete').on('click', DeleteTestcase);
+                $('#tbtnCancel').on('click', function () {
+                    dialogtest.close();
+                });
+
+                $('#btnSchedular').on('click', function () {
+                    dialogsched.open("Event");
+                });
+                $('#btnSearch').on('click', function () {
+                    grid.reload({ page: 1, TestSuite1: $('#txtTestsuite').val(), IsActive: $('#txtIsactive').prop('checked') });
+                });
+                $('#btnClear').on('click', function () {
+                    $('#txtTestsuite').val('');
+                    $('#txtIsactive').prop('checked', false);
+                    grid.reload({ page: 1, TestSuite1: '',IsActive:''});
+                });
+
+
+            });
+</script>

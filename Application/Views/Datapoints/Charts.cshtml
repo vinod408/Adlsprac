@@ -1,0 +1,486 @@
+﻿
+@{
+    ViewBag.Title = "Charts";
+}
+<!DOCTYPE html>
+@*<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>*@
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="~/Scripts/highcharts.js"></script>
+
+<html lang="en-US">
+<head>
+<script>
+    d3.select("body").transition().duration(2000).style("background-color", "#B0C4DE");
+</script>
+    <script type="text/javascript">
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.load('current', { 'packages': ['annotationchart'] });
+
+        google.charts.setOnLoadCallback(drawPieChart_Testcase_pipelinestage);
+        google.charts.setOnLoadCallback(LastMonthEfficiency);
+        google.charts.setOnLoadCallback(CurrentMonthEfficiency);
+        google.charts.setOnLoadCallback(drawChartAnnotation);
+        google.charts.setOnLoadCallback(drawMultSeries);
+
+
+        function drawPieChart_Testcase_pipelinestage() {
+
+            var jsonData = $.ajax({
+                url: "/Datapoints/PipelineStageTestcaseDetails",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+
+            var chartData = $.parseJSON(jsonData)
+            //alert(JSON.stringify(jsonData));
+
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'x');
+            data.addColumn('number', 'y');
+
+            for (var i = 1; i < chartData.length; i++) {
+
+                data.addRow([
+                    chartData[i].X, chartData[i].Y
+                ]);
+
+            }
+            var options = {
+                'title': 'Number of test  cases in each pipeline stage',
+                height: 350,
+                width: 450,
+                is3D: true
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('container'));
+
+            function selectHandler() {
+                var selectedItem = chart.getSelection()[0];
+                if (selectedItem) {
+                    var topping = data.getValue(selectedItem.row, 0);
+                    var num = data.getValue(selectedItem.row, 1);
+                    alert(num+ ' tescases are present in pipeline stage : ' + topping);
+                }
+            }
+
+            google.visualization.events.addListener(chart, 'select', selectHandler);
+            chart.draw(data, options);
+        }
+
+        function LastMonthEfficiency() {
+
+            var jsonData = $.ajax({
+                url: "/Datapoints/GetLastMonthEfficiency",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+
+            var chartData = $.parseJSON(jsonData)
+            //alert(JSON.stringify(jsonData));
+
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('number', 'x');
+            data.addColumn('number', 'y');
+            //data.addColumn('number', 'failed');
+            //data.addColumn('number', 'skipped');
+            //alert(JSON.stringify(jsonData));
+            //alert(JSON.stringify(chartData));
+            //alert(chartData.length);
+            for (var i = 0; i < chartData.length; i++) {
+
+                data.addRow([chartData[i].X, chartData[i].Y]);
+
+            }
+            //data.addRow([chartData[0].X, chartData[0].Y, chartData[1].Y, chartData[2].Y]);
+
+            var options =
+            {
+                'title': 'Last month efficiency',
+                height: 350,
+                width: 450,
+                //isStacked: true
+                vAxis:
+                {
+
+                    title: 'Efficiency (in %)',
+
+                    viewWindowMode: 'explicit',
+                    viewWindow:
+                    {
+                        max: 100,
+                        min: 0
+                    },
+                    gridlines: { count: 4 }
+                },
+                hAxis:
+                {
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: 31,
+                        min: 0
+                    }
+                }
+
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+            function selectHandler() {
+                var selectedItem = chart.getSelection()[0];
+                if (selectedItem) {
+                    var topping = data.getValue(selectedItem.row, 0);
+                    var num = data.getValue(selectedItem.row, 1);
+                    alert(" day: " + topping + " efficiency: " + num);
+                }
+            }
+
+            google.visualization.events.addListener(chart, 'select', selectHandler);
+            chart.draw(data, options);
+        }
+
+        function CurrentMonthEfficiency() {
+
+            var jsonData = $.ajax({
+                url: "/Datapoints/GetThisMonthEfficiency",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+
+            var chartData = $.parseJSON(jsonData)
+            //alert(JSON.stringify(jsonData));
+
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('number', 'x');
+            data.addColumn('number', 'y');
+            //data.addColumn('number', 'failed');
+            //data.addColumn('number', 'skipped');
+            //alert(JSON.stringify(jsonData));
+            //alert(JSON.stringify(chartData));
+            //alert(chartData.length);
+            for (var i = 0; i < chartData.length; i++)
+            {
+
+                data.addRow ( [chartData[i].X, chartData[i].Y] );
+
+            }
+            //data.addRow([chartData[0].X, chartData[0].Y, chartData[1].Y, chartData[2].Y]);
+
+            var options =
+            {
+                'title': 'This month efficiency',
+                height: 350,
+                width: 450,
+                //isStacked: true
+                vAxis:
+                {
+
+                   title: 'Efficiency (in %)',
+
+                    viewWindowMode: 'explicit',
+                    viewWindow:
+                    {
+                    max: 100,
+                    min: 0
+                    },
+                    gridlines: { count: 4 }
+                },
+                hAxis:
+                {
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                    max: 31,
+                    min: 0
+                }
+               }
+
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div_monthreport'));
+
+            function selectHandler() {
+                var selectedItem = chart.getSelection()[0];
+                if (selectedItem) {
+                    var topping = data.getValue(selectedItem.row, 0);
+                    var num = data.getValue(selectedItem.row, 1);
+                    alert(" day: "+ topping + " efficiency: "+ num);
+                }
+            }
+
+            google.visualization.events.addListener(chart, 'select', selectHandler);
+            chart.draw(data, options);
+        }
+
+        function drawMultSeries()
+        {
+              var data = new google.visualization.DataTable();
+              data.addColumn('timeofday', 'Time of Day');
+              data.addColumn('number', 'Motivation Level');
+              data.addColumn('number', 'Energy Level');
+
+              data.addRows([
+                [{v: [8, 0, 0], f: '8 am'}, 1, .25],
+                [{v: [9, 0, 0], f: '9 am'}, 2, .5],
+                [{v: [10, 0, 0], f:'10 am'}, 3, 1],
+                [{v: [11, 0, 0], f: '11 am'}, 4, 2.25],
+                [{v: [12, 0, 0], f: '12 pm'}, 5, 2.25],
+                [{v: [13, 0, 0], f: '1 pm'}, 6, 3],
+                [{v: [14, 0, 0], f: '2 pm'}, 7, 4],
+                [{v: [15, 0, 0], f: '3 pm'}, 8, 5.25],
+                [{v: [16, 0, 0], f: '4 pm'}, 9, 7.5],
+                [{v: [17, 0, 0], f: '5 pm'}, 10, 10],
+              ]);
+
+             var options = {
+              title: 'Motivation and Energy Level Throughout the Day',
+              height: 350, width: 450,
+
+                hAxis: {
+                  title: 'Time of Day',
+                  format: 'h:mm a',
+                  viewWindow: {
+                    min: [7, 30, 0],
+                    max: [17, 30, 0]
+                  }
+                },
+                vAxis: {
+                  title: 'Rating (scale of 1-10)'
+                }
+              };
+
+             var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div_multiColumn'));
+            function selectHandler() {
+                var selectedItem = chart1.getSelection()[0];
+                if (selectedItem) {
+                    var topping = data.getValue(selectedItem.row, 0);
+                    alert('The user selected ' + topping);
+                }
+            }
+
+            google.visualization.events.addListener(chart1, 'select', selectHandler);
+            chart1.draw(data, options);
+
+
+        }
+
+        function drawChartAnnotation()
+        {
+                var data = new google.visualization.DataTable();
+                data.addColumn('date', 'Date');
+                data.addColumn('number', 'Kepler-22b mission');
+                data.addColumn('string', 'Kepler title');
+                data.addColumn('string', 'Kepler text');
+                data.addColumn('number', 'Gliese 163 mission');
+                data.addColumn('string', 'Gliese title');
+                data.addColumn('string', 'Gliese text');
+
+            data.addRows([
+                    [new Date(2314, 2, 15), 12400, undefined, undefined,
+                    10645, undefined, undefined],
+                    [new Date(2314, 2, 16), 24045, 'Lalibertines', 'First encounter',
+                    12374, undefined, undefined],
+                    [new Date(2314, 2, 17), 35022, 'Lalibertines', 'They are very tall',
+                    15766, 'Gallantors', 'First Encounter'],
+                    [new Date(2314, 2, 18), 12284, 'Lalibertines', 'Attack on our crew!',
+                    34334, 'Gallantors', 'Statement of shared principles'],
+                    [new Date(2314, 2, 19), 8476, 'Lalibertines', 'Heavy casualties',
+                    66467, 'Gallantors', 'Mysteries revealed'],
+                    [new Date(2314, 2, 20), 0, 'Lalibertines', 'All crew lost',
+                    79463, 'Gallantors', 'Omniscience achieved']
+            ]);
+
+            var options = {
+                displayAnnotations: true,
+                height: 380,
+                width: 420
+            };
+
+            var chart = new google.visualization.AnnotationChart(document.getElementById('chart_divAnnotation'));
+            chart.draw(data, options);
+        }
+
+        window.onload = function()
+        {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+            today = mm + '/' + dd + '/' + yyyy;
+
+
+
+            var jsonData = $.ajax({
+            url: "/Datapoints/GetTestCasesForToday",
+            dataType: "json",
+            async: false
+            }).responseText;
+
+            var chartData = $.parseJSON(jsonData)
+            var dpSkipped = $.parseJSON(JSON.stringify(chartData.dataPointsForSkipped));
+            var dpPassed = $.parseJSON(JSON.stringify(chartData.dataPointsForPassed));
+            var dpFailed = $.parseJSON(JSON.stringify(chartData.dataPointsForFailed));
+
+            var chart = new Highcharts.chart('container_today', {
+
+                //chart: {
+                //    type: 'line'
+                //},
+                title: {
+                    text: "Today's TestCase report"
+
+                },
+                subtitle: {
+                    text: 'Source: <a href="http://localhost:17342/Datapoints/GoogleCharts">Charts</a>'
+                },
+                xAxis: {
+
+                    allowDecimals: false,
+                    tickInterval: 1,
+                    title: {
+                        //text: "Date",
+                        align: 'middle'
+                    },
+                    labels: {
+                        enabled: true,
+                        formatter: function () {
+                            return today + "( Today)";
+                        },
+            }
+                },
+
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'Number of Testcases',
+                        align: 'middle'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    crosshairs: false
+                },
+                plotOptions:
+                       {
+                           line:
+                           {
+                               dataLabels:
+                              {
+                                  enabled: true
+                              }
+                           }
+                       },
+
+                legend : {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 1,
+                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#DCDCDC'),
+                },
+                credits: {
+                    enabled: false
+                },
+                series:
+                [
+                    {
+                        name: 'Passed Testcases',
+                        type: 'column',
+
+                        data: [dpPassed[0].Y],
+                    }
+                    , {
+                        type: 'column',
+                        name: 'Skipped Testcases',
+                        data: [dpSkipped[0].Y],
+                    },
+                    {
+                        type: 'column',
+                        name: 'Failed Testcases',
+                        data: [dpFailed[0].Y],
+                    }
+                ]
+            });
+        }
+
+        
+            d3.csv('http://localhost:17342/Content/files/Chart.csv', type, render)
+
+            function render(d) {
+                var canvas = d3.select("#contain").append("svg")
+                                            .attr("width", 400)
+                                            .attr("height", 400)
+
+                var yScale = d3.scaleLinear().domain([0, 100])
+                                             .range([97, 3]);
+
+                var xScale = d3.scaleLinear().domain([0, 31])
+                                             .range([0, 300]);
+
+                var sample = canvas.selectAll("circle")
+                            .data(d)
+                            .enter()
+                            .append("circle")
+                                .attr("cx", function (d) { return xScale(d.day) })
+                                .attr("cy", function (d) { return yScale(d.efficiency) })
+                                .attr("r", 3)
+
+
+                var xLine = canvas
+                            .append("line")
+                            .attr("x1", 0)
+                            .attr("y1", 300)
+                            .attr("x2", 300)
+                            .attr("y2", 300)
+                            .style("stroke", "black")
+                            .style("stroke-width", 2)
+
+                var yLine = canvas
+                           .append("line")
+                           .attr("x1", 0)
+                           .attr("y1", 300)
+                           .attr("x2", 0)
+                           .attr("y2", 0)
+                           .style("stroke", "black")
+                           .style("stroke-width", 2)
+            };
+            function type(d) {
+                d.x = +d.x;
+                d.y = +d.y;
+                return d;
+            }
+        
+    </script>
+</head>
+
+<body>
+    
+    <table class="columns"> 
+
+        <tr style="height:390px">
+            <td><div class="col-md-offset-2" id="container" style="border: 5px solid #ccc; width:460px;"></div></td>
+            <td><div  class="col-md-offset-3" id="container_today" style="border: 5px solid #ccc; width:460px; height:360px"></div></td>
+        </tr>
+
+        <tr style="height:390px; ">
+            <td><div class="col-md-offset-2" id="chart_div_monthreport" style="border: 5px solid #ccc; width:460px;"></div></td>
+            <td><div class="col-md-offset-3" id="chart_div" style="border: 5px solid #ccc; width:460px;"></div></td>
+        </tr>
+        <tr style="height:390px">
+        <td><div class="col-md-offset-2" id="chart_div_multiColumn" style="border: 5px solid #ccc; width:460px"></div></td>
+        <td><div class="col-md-offset-3" id="contain" style="border: 5px solid #ccc; width:460px; height:360px"></div></td>        
+        </tr>
+    </table>
+
+</body>
+</html>
+
+
