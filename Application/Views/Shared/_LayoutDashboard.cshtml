@@ -21,20 +21,27 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
     <!--Gijgo-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
     <link href="http://code.gijgo.com/1.4.0/css/gijgo.css" rel="stylesheet" type="text/css" />
     <link href="http://code.gijgo.com/1.4.0/css/demo.css" rel="stylesheet" type="text/css" />
     @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="http://code.gijgo.com/1.4.0/js/gijgo.js" type="text/javascript"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <script src="http://code.gijgo.com/1.4.0/js/gijgo.js" type="text/javascript"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <script src="~/Scripts/gijgo/modular/grid/grid.min.js"></script>*@
+        <script src="~/Scripts/gijgo/modular/grid/grid.min.js"></script>*@
+    <!--KendoScheduler scripts-->
+    <!-- Required CSS -->
+    <link href="~/Content/Kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/Kendo/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/Content/Kendo/kendo.flat.min.css" rel="stylesheet" />
+    <!--Required Scripts-->
+    <script src="~/Scripts/Kendo/jquery.min.js"></script>
+    <script src="~/Scripts/Kendo/kendo.web.min.js"></script>
 
-    
+
     <!--charts-->
-    <script src="https://www.gstatic.com/charts/loader.js"></script> 
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="~/Scripts/highcharts.js"></script>
 
@@ -60,7 +67,7 @@
             padding-left: 20px;
         }
 
-           ul#notiContent li {
+            ul#notiContent li {
                 margin: 3px;
                 padding: 6px;
                 background: #fff;
@@ -166,17 +173,17 @@
                     </ul>
                 </li>
 
-           
+
                 <li>
                     <a href="#" class="noti glyphicon fa fa-bell"><b><span class="count">&nbsp;</span></b><b class="caret"></b></a>
                     <div class="noti-content">
                         <div class="noti-top-arrow"></div>
                         <ul id="notiContent"></ul>
                     </div>
-                   
-               </li>
-                
-              
+
+                </li>
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-right:2em"><i class="fa fa-user"></i>&nbsp;Hi! @Session["userName"] (@Session["Role"])<b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -206,13 +213,13 @@
                         <a href="@Url.Action("Dashboard2","Validation")"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     @*<li>
-                            <a href="#" onclick="partgijgo()"><i class="fa fa-fw fa-bar-chart-o"></i>Charts</a>
-                        </li>
-                        <li>
-                            <a href="#" onclick="partchart()"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                                <a href="#" onclick="partgijgo()"><i class="fa fa-fw fa-bar-chart-o"></i>Charts</a>
                         </li>*@
                     <li>
                         <a href="@Url.Action("Table","Validation")"><i class="fa fa-fw fa-table"></i> Tables</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Scheduler","Validation")"><i class="fa fa-fw fa-calendar"></i> Scheduler</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-fw fa-edit"></i> Forms</a>
@@ -247,11 +254,11 @@
         @RenderBody()
         @RenderSection("scripts", required: false)
 
-        </div>
-        <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
-        <script src="/signalr/hubs"></script>
-        @* Add jquery code for Get Notification & setup signalr *@
-        <script type="text/javascript">
+    </div>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    @* Add jquery code for Get Notification & setup signalr *@
+    <script type="text/javascript">
         $(function () {
             // Click on notification icon for show notification
             $('a.noti').click(function (e) {
@@ -323,9 +330,41 @@
             }
 
         })
-        </script>
+    </script>
 
+    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
 
+            // Initalize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });
+    </script>
 
 </body>
 </html>

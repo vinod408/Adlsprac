@@ -269,6 +269,7 @@ namespace ValidationDAL
                 testcasetemp.TestSuiteId = TestcaseObj.TestSuiteId;
                 testcasetemp.IsObsolete = TestcaseObj.IsObsolete;
                 testcasetemp.ObsoleteReason = TestcaseObj.ObsoleteReason;
+                testcasetemp.CreatedBy = TestcaseObj.CreatedBy;
                 context.SaveChanges();
                 return 1;
             }
@@ -441,6 +442,77 @@ namespace ValidationDAL
                 return null;
             }
         }
+        public List<Scheduler> GetSchedulerEvents()
+        {
+
+            try
+            {
+                var lst = new List<Scheduler>();
+                lst = context.Schedulers.ToList<Scheduler>();
+                return lst;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public int SaveSchedularEvent(Scheduler schedu)
+        {
+            try
+            {
+                var eventfetched = new Scheduler();
+
+                var query = (from c in context.Schedulers select c.TaskID).ToList(); 
+                if(query.Count()!=0)
+                {
+                    var lastid = query.Max();
+                    eventfetched.TaskID = lastid + 1;
+                }
+                else
+                {
+                    eventfetched.TaskID = 1;
+                }                
+                eventfetched.Title = schedu.Title;
+                eventfetched.Start = schedu.Start;
+                eventfetched.End = schedu.End;
+                eventfetched.StartTimezone = schedu.StartTimezone;
+                eventfetched.EndTimezone = schedu.EndTimezone;
+                eventfetched.Description = schedu.Description;
+                eventfetched.RecurrenceID = schedu.RecurrenceID;
+                eventfetched.RecurrenceRule = schedu.RecurrenceRule;
+                eventfetched.RecurrenceException = schedu.RecurrenceException;
+                eventfetched.IsAllDay = schedu.IsAllDay;
+                context.Schedulers.Add(eventfetched);
+                context.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            { return 0; }
+        }
+        public int UpdateSchedularEvent(Scheduler schedu)
+        {
+            var testsuite = new Event();
+            try
+            {
+                var eventfetched = (from c in context.Schedulers where c.TaskID == schedu.TaskID select c).FirstOrDefault<Scheduler>();
+                eventfetched.Title = schedu.Title;
+                eventfetched.Start = schedu.Start;
+                eventfetched.End = schedu.End;
+                eventfetched.StartTimezone = schedu.StartTimezone;
+                eventfetched.EndTimezone = schedu.EndTimezone;
+                eventfetched.Description = schedu.Description;
+                eventfetched.RecurrenceID = schedu.RecurrenceID;
+                eventfetched.RecurrenceRule = schedu.RecurrenceRule;
+                eventfetched.RecurrenceException = schedu.RecurrenceException;
+                eventfetched.IsAllDay = schedu.IsAllDay;
+
+                context.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            { return 0; }
+        }
+        
         public int UpdatedEvent(Event eventc)
         {
             var testsuite = new Event();
@@ -464,6 +536,19 @@ namespace ValidationDAL
             catch (Exception ex)
             { return 0; }
         }
+        public int DeleteSchedularEvent(int id)
+        {
+            try
+            {
+                var delevent = (from c in context.Schedulers where c.TaskID == id select c).FirstOrDefault<Scheduler>();
+                context.Schedulers.Remove(delevent);
+                context.SaveChanges();
+                return 1;
+            }
+            catch
+            { return 0; }
+        }
+        
         public int SaveEvent(Event eventc)
         {
             try
@@ -626,5 +711,93 @@ namespace ValidationDAL
         }
 
 
+        public int SaveRowCountParams(TestCaseParameterRowCount row)
+        {
+            try
+            {
+                var lastid = (from c in context.TestCaseParameterRowCounts select c.TestCaseParameterRowCountId).Max();
+                var rowparamfetched = new TestCaseParameterRowCount();
+                rowparamfetched.TestCaseParameterRowCountId = lastid + 1;
+                rowparamfetched.TableName = row.TableName;
+                rowparamfetched.TestCaseId = row.TestCaseId;
+                rowparamfetched.SourceFilePath = row.SourceFilePath;
+                rowparamfetched.DestinationFilePath = row.DestinationFilePath;
+                rowparamfetched.FileColumnsCount = row.FileColumnsCount;
+                rowparamfetched.CreatedBy = row.CreatedBy;
+                rowparamfetched.CreatedDate = DateTime.Now;  
+                context.TestCaseParameterRowCounts.Add(rowparamfetched);
+                context.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            { return 0; }
+        }
+        public int SavePrimarykeyParams(TestCaseParameterPrimaryKey ppk)
+        {
+            try
+            {
+                var lastid = (from c in context.TestCaseParameterPrimaryKeys select c.TestCaseParameterPrimaryKeyId).Max();
+                var paramfetched = new TestCaseParameterPrimaryKey();
+                paramfetched.TestCaseParameterPrimaryKeyId = lastid + 1;
+                paramfetched.TestCaseId = ppk.TestCaseId;
+                paramfetched.TableName = ppk.TableName;
+                paramfetched.PrimaryKeyColumn = ppk.PrimaryKeyColumn;
+                paramfetched.CreatedBy = ppk.CreatedBy;
+                paramfetched.CreatedDate = DateTime.Now;
+                context.TestCaseParameterPrimaryKeys.Add(paramfetched);
+                context.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            { return 0; }
+        }
+        public int SaveFKParams(TestCaseParameterForeignKey ppk)
+        {
+            try
+            {
+                var lastid = (from c in context.TestCaseParameterForeignKeys select c.TestCaseParameterForeignKeyId).Max();
+                var paramfetched = new TestCaseParameterForeignKey();
+                paramfetched.TestCaseParameterForeignKeyId = lastid + 1;
+                paramfetched.TestCaseId = ppk.TestCaseId;
+                paramfetched.PrimaryKeyTableName = ppk.PrimaryKeyTableName;
+                paramfetched.PrimaryKeyColumn = ppk.PrimaryKeyColumn;
+                paramfetched.ForeignKeyTableName = ppk.ForeignKeyTableName;
+                paramfetched.ForeignKeyColumn = ppk.ForeignKeyColumn;
+                paramfetched.CreatedBy = ppk.CreatedBy;
+                paramfetched.CreatedDate = DateTime.Now;
+                context.TestCaseParameterForeignKeys.Add(paramfetched);
+                context.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            { return 0; }
+        }
+        public int SaveValueCheckParams(TestCaseParameterValueCheck vc)
+        {
+            try
+            {
+                var lastid = (from c in context.TestCaseParameterValueChecks select c.TestCaseParameterValueCheckId).Max();
+                var paramfetched = new TestCaseParameterValueCheck();
+                paramfetched.TestCaseParameterValueCheckId = lastid + 1;
+                paramfetched.TestCaseId = vc.TestCaseId;
+                paramfetched.TableName = vc.TableName;
+                paramfetched.PrimaryKeyColumnName = vc.PrimaryKeyColumnName;
+                paramfetched.ValueCheckColumnName = vc.ValueCheckColumnName;
+                paramfetched.DestinationFilePath = vc.DestinationFilePath;
+                paramfetched.FileColumnsCount = vc.FileColumnsCount;
+                paramfetched.FileColumnsName = vc.FileColumnsName;
+                paramfetched.SourceWhereClauseFilter = vc.SourceWhereClauseFilter;
+                paramfetched.DestinationWhereClauseFilter = vc.DestinationWhereClauseFilter;
+                paramfetched.CreatedBy = vc.CreatedBy;
+                paramfetched.CreatedDate = DateTime.Now;
+                context.TestCaseParameterValueChecks.Add(paramfetched);
+                context.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            { return 0; }
+        }
+
     }
+    
 }

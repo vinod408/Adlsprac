@@ -124,6 +124,7 @@
                     <div id="cd-login">
                         <!-- log in form -->
                         <form action="" class="cd-form" id="login" name="login" ng-submit="LoginForm()">
+                            <h6 style="color:red">{{errormessage}}</h6>
                             <p class="fieldset">
                                 <label class="image-replace cd-email" for="signin-email">E-mail</label>
                                 <input class="full-width has-padding has-border" id="email" type="email" placeholder="E-mail" ng-model="UserModel.Useremail" required>
@@ -140,8 +141,8 @@
                                 <input class="has-padding has-border" id="role" type="text" placeholder="-Role Select-" list="rolelist" ng-model="UserModel.Role" required>
                                 <datalist id="rolelist">
                                     <option value="Admin">
-                                    <option value="Manager">
-                                    <option value="Operator">
+                                    @*<option value="Manager">
+                                    <option value="Operator">*@
                                 </datalist>
                                 @*<span class="cd-error-message">Error message here!</span>*@
                             </p>
@@ -163,7 +164,7 @@
                             <!-- sign up form -->
 
                             <form action="" class="cd-form" id="registration" name="registration" ng-submit="Registerform()">
-                                <h6>{{errormessage}}</h6>
+                                <h6 style="color:red">{{errormessage}}</h6>
                                 <p class="fieldset">
                                     <label class="image-replace cd-username" for="signup-username">Name</label>
                                     <input class="full-width has-padding has-border" id="firstname" type="text" placeholder="Name" minlength="3" ng-model="UserModel.fullName" required>
@@ -192,8 +193,8 @@
                                     <input class="has-padding has-border" id="role" type="text" placeholder="-Role Select-" list="rolelist" ng-model="UserModel.Role" required>
                                     <datalist id="rolelist">
                                         <option value="Admin">
-                                        <option value="Manager">
-                                        <option value="Operator">
+                                        @*<option value="Manager">
+                                        <option value="Operator">*@
                                     </datalist>
                                     @*<span class="cd-error-message">Error message here!</span>*@
                                 </p>

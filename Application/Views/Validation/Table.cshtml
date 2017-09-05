@@ -4,397 +4,31 @@
 }
 <!-- /#wrapper -->
 <!-- jQuery -->
-<script src="~/Content/SB Admin/jquery/jquery.js"></script>
+@*<script src="~/Content/SB Admin/jquery/jquery.js"></script>*@
 <!-- Bootstrap Core JavaScript -->
 <script src="~/Content/SB Admin/jquery/bootstrap.min.js"></script>
 <!-- Morris Charts JavaScript -->
 
 @section scripts {
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://code.gijgo.com/1.4.0/js/gijgo.js" type="text/javascript"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <script src="~/Scripts/gijgo/modular/grid/grid.min.js"></script>
 
-<script src="~/Scripts/Gijgo/modular/core/core.js"></script>
-<link href="~/Scripts/Gijgo/css/core.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<script src="~/Scripts/Gijgo/modular/dropdown/dropdown.js"></script>
-<link href="~/Scripts/Gijgo/css/dropdown.css" rel="stylesheet" />
+<script src="~/Scripts/Gijgo/AppCustom Gijgo/AppcustomGijgo.js"></script>
+    @*<script src="~/Scripts/Gijgo/modular/core/core.min.js"></script>
+        <link href="~/Scripts/Gijgo/css/core.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+        <script src="~/Scripts/Gijgo/modular/dropdown/dropdown.js"></script>
+        <link href="~/Scripts/Gijgo/css/dropdown.min.css" rel="stylesheet" />*@
 }
- <script type="text/javascript">
-    $('#dropdown').dropdown({
-         dataSource: '/Locations/Get',
-         valueField: 'id'
-     });
-</script>
-
-<script type="text/javascript">
-        var grid, dialog, dialogtest;
-        function Popup(e) {
-            var dt = new Date(parseInt(e.data.record.CreatedDate.substr(6)));
-            $('#TestSuiteId').val(e.data.id);
-            $('#TestSuite1').val(e.data.record.TestSuite1);
-            $('#TestSuiteDescription').val(e.data.record.TestSuiteDescription);
-            $('#IsActive').prop('checked', e.data.record.IsActive);
-            $('#TestSuiteOwner').val(e.data.record.TestSuiteOwner);
-            $('#CreatedDate').val(dt);
-            $('#CreatedBy').val(e.data.record.CreatedBy);
-            $('#btnUpdate').show();
-            $('#btnDelete').show();
-            $('#btnSave').hide();
-            dialog.open('TestSuite');
-        }
-        function Popuptest(e) {
-            var dt = new Date(parseInt(e.data.record.CreatedDate.substr(6)));
-            $('#TestCaseId').val(e.data.id);
-            $('#TestSuiteId').val(e.data.record.TestSuiteId);
-            $('#PipelineStageId').val(e.data.record.PipelineStageId);
-            $('#TestCaseTypeId').val(e.data.record.TestCaseTypeId);
-            $('#TestCaseName').val(e.data.record.TestCaseName);
-            $('#Description').val(e.data.record.Description);
-            $('#IsActive1').prop('checked', e.data.record.IsActive);
-            $('#IsObsolete').prop('checked', e.data.record.IsObsolete);
-            $('#ObsoleteReason').val(e.data.record.ObsoleteReason);
-            $('#CreatedDate').val(dt);
-            $('#CreatedBy').val(e.data.record.CreatedBy);
-            $('#tbtnUpdate').show();
-            $('#tbtnDelete').show();
-            $('#tbtnSave').hide();
-            dialogtest.open('TestCase');
-        }
-        function Save() {
-            var record = {
-                TestSuiteId: $('#TestSuiteId').val(),
-                TestSuite1: $('#TestSuite1').val(),
-                TestSuiteDescription: $('#TestSuiteDescription').val(),
-                IsActive: $('#IsActive').prop('checked'),
-                TestSuiteOwner: $('#TestSuiteOwner').val(),
-                CreatedDate: $('#CreatedDate').val(),
-                CreatedBy: $('#CreatedBy').val(),
-            };
-            if (record.TestSuiteId != 0) {
-
-                $.ajax({ url: '/Validation/UpdateTestSuite', data: record, method: 'POST' })
-                .done(function () {
-                    var $log = $("#lalert"),
-                    str = "<p class='alert alert-dismissable'>TestSuite Updated Successfully<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</A></p>"
-                    html = $.parseHTML(str),
-                    nodeNames = [];
-                    // Append the parsed HTML
-                    $log.append(html);
-                    dialog.close();
-                    grid.reload();
-                })
-                .fail(function () {
-                    $('#lerror').text('We cant delete the this item which is referencing in other tables')
-                    dialog.close();
-                });
-            }
-            else {
-
-                $.ajax({ url: '/Validation/SaveTestSuite', data: record, method: 'POST' })
-                .done(function () {
-                    //alert(JSON.stringify(response.success));
-                    //if (response.success == false) {
-                    //    alert("Problem in saving Testsuite")
-                    //};
-
-                    dialog.close();
-                    grid.reload();
-                })
-                .fail(function () {
-                    alert('Failed to save.');
-                    dialog.close();
-                });
-            }
-
-        }
-        function Delete() {
-            var record = {
-                TestSuiteId: $('#TestSuiteId').val(),
-                TestSuite1: $('#TestSuite1').val(),
-                TestSuiteDescription: $('#TestSuiteDescription').val(),
-                TestSuiteOwner: $('#TestSuiteOwner').val(),
-                CreatedDate: $('#CreatedDate').val(),
-                CreateBy: $('#CreateBy').val(),
-            };
-
-            $.ajax({ url: '/Validation/DeleteTestSuite', data: record, method: 'POST' })
-                            .done(function () {
-                                dialog.close();
-                                grid.reload();
-
-                            })
-                            .fail(function () {
-                                alert('Failed to delete.');
-                            });
-
-        }
-
-        function Savetestcase() {
-            var record = {
-                TestSuiteId: $('#TestSuiteId').val(),
-                TestCaseId: $('#TestCaseId').val(),
-                TestCaseName: $('#TestCaseName').val(),
-                PipelineStageId: $('#PipelineStageId').val(),
-                TestCaseTypeId: $('#TestCaseTypeId').val(),
-                Description: $('#Description').val(),
-                IsActive: $('#IsActive1').prop('checked'),
-                IsObsolete: $('#IsObsolete').prop('checked'),
-                ObsoleteReason: $('#ObsoleteReason').val(),
-                CreatedDate: $('#CreatedDate').val(),
-                CreatedBy: $('#CreatedBy').val(),
-            };
-
-            if (record.TestCaseId != 0) {
-                $.ajax({ url: '/Validation/kendoUpdateGettestcases', data: record, method: 'POST' })
-                .done(function () {
-                    var $log = $("#lalert"),
-                    str = "<p class='alert alert-dismissable'>TestSuite Updated Successfully<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</A></p>"
-                    html = $.parseHTML(str),
-                    nodeNames = [];
-                    // Append the parsed HTML
-                    $log.append(html);
-                    dialogtest.close();
-                    grid.reload();
-                })
-                .fail(function () {
-                    $('#lerror').text('We cant delete the this item which is referencing in other tables')
-                    dialogtest.close();
-                });
-            }
-            else {
-                $.ajax({ url: '/Validation/kendosaveGettestcases', data: record, method: 'POST' })
-                .done(function () {
-                    //alert(JSON.stringify(response.success));
-                    //if (response.success == false) {
-                    //    alert("Problem in saving Testsuite")
-                    //};
-
-                    dialog.close();
-                    grid.reload();
-                })
-                .fail(function () {
-                    alert('Failed to save.');
-                    dialog.close();
-                });
-            }
-
-        }
-        function DeleteTestcase() {
-            var record = {
-                TestCaseId: $('#TestCaseId').val(),
-            };
-            $.ajax({ url: '/Validation/DeleteTestCase', data: record, method: 'POST' })
-                            .done(function () {
-                                dialogtest.close();
-                                grid.reload();
-
-                            })
-                            .fail(function () {
-                                alert('Failed to delete.');
-                            });
-
-        }
-        function showMe(it, box) {
-            var vis = (box.checked) ? "block" : "none";
-            document.getElementById(it).style.display = vis;
-        }
-        $(document).ready(function () {
-            grid = $('#grid').grid({
-                primaryKey: 'TestSuiteId',
-                responsive: true,
-                uiLibrary: 'bootstrap4',
-                iconsLibrary: 'fontawesome',
-                dataSource: '/Validation/jqueryGettestsuites',
-
-                columns: [
-                    { field: 'TestSuiteId', sortable: true, width: 64,title:'Id' },
-                    { field: 'TestSuite1', sortable: true, editor: false, title: 'TestSuiteName', width: 160 },
-                    { field: 'TestSuiteDescription', editor: false, priority: 2,width:160 },
-                    { field: 'IsActive', editor: false, width: 80, priority: 1 },
-                    { field: 'TestSuiteOwner', editor: false, priority: 2, width: 160 },
-                    { field: 'CreatedDate', title: 'Created Date', type: 'date', format: 'mm/dd/yyyy', sortable: true, width: 120, priority: 2 },
-                    { field: 'CreatedBy', title: 'Created By', width: 120, priority: 2 },
-                    { width: 60, tmpl: '<span class="material-icons gj-cursor-pointer">edit</span>', align: 'center', events: { 'click': Popup } },
-                    //{ width: 64, tmpl: '<span class="material-icons gj-cursor-pointer">delete</span>', align: 'center', events: { 'click': Popup } }
-                ],
-                pager: { limit: 8 },
-
-                detailTemplate: ' <div style="width:100%;padding-left:3em" class="col-lg-12 col-md-12"> '+
-                    '<button id="tbtnAdd" type="button" class="pull-left gj-button-md" style="color:#e45200;"><span class="material-icons gj-cursor-pointer">add</span><b>Add New TestCase</b></button> '+
-                    '<form class="pull-right display-inline"><input id="txtTestcase" type="text" placeholder="Testcasename..." class="gj-textbox-md gj-display-inline-block gj-width-200" />IsActive &nbsp;<input id="xtIsactive" type="checkbox"class="gj-display-inline-block"/>&nbsp;&nbsp;&nbsp;&nbsp;IsObsolete&nbsp;<input id="xtIsObsolete" type="checkbox"class="gj-display-inline-block"/><button id="tbtnSearch" type="button" class="gj-button-md" style="color:#e45200;">Search</button><button id="tbtnClear" type="button" class="gj-button-md">Clear</button></form><table/></div>'
-
-            });         
-            grid.on('detailExpand', function (e, $detailWrapper, id) {
-                var subgrid = $detailWrapper.find('table').grid({
-                    params: { Id: id },
-                    uiLibrary: 'bootstrap4',
-                    responsive: true,
-                    iconsLibrary: 'fontawesome',
-                    primaryKey: 'TestCaseId',
-                    //inlineEditing: { mode: 'command' },
-                    dataSource: '/Validation/jqueryGettestcases',
-                    columns: [
-                    { field: 'TestCaseId', sortable: true, title: 'Id', width: 50 },
-                        { field: 'PipelineStageId', title: 'StageId', sortable: true, width: 80, priority: 2 },
-                    { field: 'TestCaseTypeId', sortable: true, width: 80, priority: 2},
-                    { field: 'Description', sortable: true, width: 200, priority: 2},
-                    { field: 'TestSuiteId', hidden: 'true', width: 80, priority: 2},
-                    { field: 'TestCaseName', sortable: true, width: 200, priority: 2},
-                        { field: 'IsActive', title: 'Active', sortable: true, width: 80, priority: 1 },
-                    { field: 'IsObsolete', title: 'Obsolete', sortable: true, width: 80, priority: 1 },
-                    { field: 'ObsoleteReason', width: 200, priority: 2},
-                    { width: 50, tmpl: '<span class="material-icons gj-cursor-pointer">edit</span>', align: 'center', events: { 'click': Popuptest } }
-                    ],
-                    pager: { limit: 5 }
-
-
-                });
-                subgrid.on('rowDataChanged', function (e, id, record) {
-                    alert(JSON.stringify(record)),
-                    $.ajax({ url: '/Validation/kendoUpdateGettestcases', data: record, method: 'POST' })
-                        .done(function () {
-                            grid.reload();
-                        })
-                        .fail(function () {
-                            alert('Failed to save.');
-                        });
-                });
-                $('#tbtnAdd').on('click', function () {
-                    debugger
-                    $('#TestCaseId').val(0);
-                    $('#TestSuiteId').val(0);
-                    $('#TestCaseName').val('');
-                    $('#Description').val('');
-                    $('#IsActive').val(false);
-                    $('#IsObsolete').val(false);
-                    $('#ObsoleteReason').val('');
-                    $('#CreatedDate').val('');
-                    $('#CreatedBy').val('');
-                    $('#tbtnUpdate').hide();
-                    $('#tbtnDelete').hide();
-                    $('#tbtnSave').show();
-                    dialogtest.open('TestCase');
-                });
-
-                $('#tbtnSearch').on('click', function () {
-                    subgrid.reload({ page: 1, TestCaseName: $('#txtTestcase').val(), IsActive: $('#xtIsactive').prop('checked'), IsObsolete: $('#xtIsObsolete').prop('checked') });
-                });
-                $('#tbtnClear').on('click', function () {
-                    $('#txtTestcase').val('');
-                    $('#xtIsactive').prop('checked', false);
-                    $('#xtIsObsolete').prop('checked', false);
-                    subgrid.reload({ page: 1, TestCaseName: '', IsActive: '',IsObsolete:''});
-                });
-            });
-            grid.on('detailCollapse', function (e, $detailWrapper, id) {
-                $detailWrapper.find('table').grid('destroy', true, true);
-            });
-
-            grid.on('rowDataChanged', function (e, id, record) {
-                //alert(JSON.stringify(record)),
-                $.ajax({ url: '/Validation/UpdateTestSuite', data: record, method: 'POST' })
-                    .done(function () {
-                        grid.reload();
-                    })
-                    .fail(function () {
-                        alert('Failed to save.');
-                    });
-            });
-            grid.on('rowRemoving', function (e, $row, id, record) {
-                //alert(JSON.stringify(id));
-                if (confirm('Are you sure?')) {
-                    $.ajax({ url: '/Validation/DeleteTestSuite', data: record, method: 'POST' })
-                        .done(function () {
-                            grid.reload();
-                        })
-                        .fail(function () {
-                            alert('Failed to delete.');
-                        });
-                }
-            });
-
-            dialog = $('#dialog').dialog({
-                uiLibrary: 'bootstrap4',
-                autoOpen: false,
-                resizable: false,
-                modal: true,
-                width: 360
-            });
-            dialogtest = $('#dialogTestCase').dialog({
-                uiLibrary: 'bootstrap',
-                autoOpen: false,
-                resizable: false,
-                modal: true,
-                width: 360
-            });
-            dialogsched = $('#dialogschedular').dialog({
-                uiLibrary: 'bootstrap',
-                autoOpen: false,
-                resizable: true,
-                modal: false,
-                height: 500,
-                width: 650
-            });
-            $('#btnAdd').on('click', function () {
-                $('#TestSuiteId').val(0);
-                $('#TestSuite1').val('');
-                $('#TestSuiteDescription').val('');
-                $('#IsActive').val(false);
-                $('#TestSuiteOwner').val('');
-                $('#CreatedDate').val('');
-                $('#CreatedBy').val('');
-                $('#btnUpdate').hide();
-                $('#btnDelete').hide();
-                $('#btnSave').show();
-                dialog.open('Create TestSuite');
-            });
-            $('#tbtnAdd').on('click', function () {
-                debugger
-                $('#TestCaseId').val(0);
-                $('#TestSuiteId').val(0);
-                $('#TestCaseName').val('');
-                $('#Description').val('');
-                $('#IsActive').val(false);
-                $('#IsObsolete').val(false);
-                $('#ObsoleteReason').val('');
-                $('#CreatedDate').val('');
-                $('#CreatedBy').val('');
-                $('#tbtnUpdate').hide();
-                $('#tbtnDelete').hide();
-                $('#tbtnSave').show();
-                dialogtest.open('TestCase');
-            });
-            $('#btnSave').on('click', Save);
-            $('#btnUpdate').on('click', Save);
-            $('#btnDelete').on('click', Delete);
-            $('#btnCancel').on('click', function () {
-                dialog.close();
-            });
-            $('#tbtnSave').on('click', Savetestcase);
-            $('#tbtnUpdate').on('click', Savetestcase);
-            $('#tbtnDelete').on('click', DeleteTestcase);
-            $('#tbtnCancel').on('click', function () {
-                dialogtest.close();
-            });
-
-            $('#btnSchedular').on('click', function () {
-                dialogsched.open("Event");
-            });
-            $('#btnSearch').on('click', function () {
-                grid.reload({ page: 1, TestSuite1: $('#txtTestsuite').val(), IsActive: $('#txtIsactive').prop('checked') });
-            });
-            $('#btnClear').on('click', function () {
-                $('#txtTestsuite').val('');
-                $('#txtIsactive').prop('checked', false);
-                grid.reload({ page: 1, TestSuite1: '',IsActive:''});
-            });
-
-
-        });
-</script>
+<style>
+    .required{
+        color:red;
+    }
+</style>
 
 <script>
     var partgijgo=function(){
@@ -402,22 +36,32 @@
         debugger
         $("#gijgpartial").load('@Url.Action("gijgopartial", "Validation")');
     }
-    var partkendo = function () {
-        $("#gijgpartial").load('@Url.Action("kendopartial", "Validation")');
+    var partsched = function () {
+      $("#gijgpartial").load('@Url.Action("gijgopartial", "Validation")');
     }
     var partcharts = function () {
         $("#gijgpartial").load('@Url.Action("Chartspartail", "Datapoints")');
     }
 
 </script>
+@*windowpopup*@
+<script>
+    var windowschedulerpopup = function (e) {
+        var windowWidth = 700;
+        var windowHeight = 490;
+        var xPos = (screen.width / 2) - (windowWidth / 2);
+        var yPos = (screen.height / 2) - (windowHeight / 2);
+        window.open('/Validation/Schedulerwindow?id='+e.data.record.TestCaseId+'&desc='+e.data.record.Description, 'Event', "width="
+        + windowWidth + ",height=" + windowHeight + ",left=" + xPos + ",top=" + yPos);
+    }
 
+</script>
 @*@if (Session["userName"] != null)
-    {*@
-
+{*@
 
     <div id="page-wrapper">
         <div class="container-fluid">
- 
+
             @*@Ajax.ActionLink("Create ", "gijgopartial", "Validation", null, new AjaxOptions { UpdateTargetId = "toUpdate" })*@
 
 
@@ -427,6 +71,7 @@
                     <ol class="breadcrumb">
                         <li class="active">
                             <i class="fa fa-dashboard"></i> Table
+
                         </li>
                     </ol>
                 </div>
@@ -461,98 +106,255 @@
                         <div id="dialogschedular" class="gj-display-none">
                             <div id="scheduler"></div>
                         </div>
-                        @*//Testsuite dialog*@
-                        <div id="dialog" class="gj-display-none">
-                            <div data-role="body">
-                                <input type="hidden" id="TestSuiteId" />
-                                <div class="">
-                                    <label>TestStuite Name</label>
-                                    <input type="text" class="gj-textbox-md" id="TestSuite1">
-                                </div>
-                                <div class="">
-                                    <label>TestStuite Description</label>
-                                    <input type="text" class="gj-textbox-md" id="TestSuiteDescription" />
-                                </div>
-                                <div class="">
-                                    <label>IsActive</label>
-                                    <input type="checkbox" class="gj-checkbox-md" id="IsActive" />
-                                </div>
-                                <div class="">
-                                    <label>TestStuite Owner</label>
-                                    <select id="PipelineStageId"></select>
-                                    <input type="text" class="gj-textbox-md" id="TestSuiteOwner" />
-                                </div>
-                                <div class="">
-                                    @*<label>CreatedDate</label>*@
-                                    <input type="hidden" class="gj-textbox-md" id="CreatedDate" />
-                                </div>
-                                <div class="">
-                                    <label>CreateBy</label>
-                                    <input type="text" class="gj-textbox-md" id="CreatedBy" />
-                                </div>
-                            </div>
-                            <div data-role="footer">
-                                <button type="button" id="btnSave" class="gj-button-md">Save</button>
-                                <button type="button" id="btnUpdate" class="gj-button-md">Update</button>
-                                <button type="button" id="btnDelete" class="gj-button-md">Delete</button>
-                                <button type="button" id="btnCancel" class="gj-button-md">Cancel</button>
+
+                        @*success dialog*@
+                        <div id="dialogsuccess" class="gj-display-none">
+                           <div style="color:darkgreen">
+                               <i class="glyphicon glyphicon-ok-sign"></i>Saved Successfully
+                           </div>
+                        </div>
+                        @*success dialog*@
+                        <div id="dialogupdate" class="gj-display-none">
+                            <div style="color:green">
+                                <i class="glyphicon glyphicon-ok-circle"></i>Updated Successfully
                             </div>
                         </div>
-                        @*//Testcase dialog*@
+                        @*success dialog*@
+                        <div id="dialogdelete" class="gj-display-none">
+                            <div style="color:orangered">
+                                <i class="glyphicon glyphicon-trash"></i>Deleted Successfully
+                            </div>
+                        </div>
+
+
+                        @*//Testsuite dialog*@
+                        <div id="dialog" class="gj-display-none">
+                       
+                                <div data-role="body">
+                                    <input type="hidden" id="TestSuiteId" />
+                                    <div class="">
+                                        <label>TestStuite Name: <i class="required">*</i></label>
+                                        <input type="text" class="gj-textbox-md" id="TestSuite1" placeholder="TestSuitename..." required>
+                                    </div>
+                                    <div class="">
+                                        <label>TestStuite Description:</label>
+                                        <input type="text" class="gj-textbox-md" id="TestSuiteDescription" placeholder="TestSuite Description..." />
+                                    </div>
+                                    <div class="">
+                                        <label>IsActive:</label>
+                                        <input type="checkbox" class="gj-checkbox-md" id="IsActive" />
+                                    </div>
+                                    <div class="">
+                                        <label>TestStuite Owner:<i class="required">*</i></label>
+                                        <input type="text" class="gj-textbox-md" id="TestSuiteOwner" placeholder="TestSuite Owner..." />
+                                    </div>
+                                    <div class="">
+                                        @*<label>CreatedDate</label>*@
+                                        <input type="hidden" class="gj-textbox-md" id="CreatedDate" placeholder="Created Date..." />
+                                    </div>
+                                    <div class="">
+                                        <label>CreateBy:</label>
+                                        <input type="text" class="gj-textbox-md" id="CreatedBy" />
+                                    </div>
+                                </div>
+                                <div data-role="footer">
+                                    <button type="button" id="btnSave" class="gj-button-md">Save</button>
+                                    <button type="button" id="btnUpdate" class="gj-button-md">Update</button>
+                                    <button type="button" id="btnDelete" class="gj-button-md">Delete</button>
+                                    <button type="button" id="btnCancel" class="gj-button-md">Cancel</button>
+                                </div>
+                       
+                          
+                        </div>
+
+                        @*Testcase dialog*@
                         <div id="dialogTestCase" class="gj-display-none">
                             <div data-role="body">
                                 <input type="hidden" id="TestCaseId" />
+                                <input type="hidden" id="TestSuiteId1" />
+                                <div class="" style="padding-bottom:1em">
+                                    <label>TestCase Name:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="TestCaseName" placeholder="Testcasename..." required>
+                                </div>
+                                <div class="list-inline">
+                                    <label>PipelineStage:  <i class="required">*</i></label>
+                                    @Html.DropDownList("PipelineStageId", new SelectList(ViewBag.pipelinelist, "PipelineStageId", "PipelineStage1"), "--Select--", new {@style = "width:170px;height:30px;border-radius:10px;"@*onchange = "getAlldata()"*@ })
+                                    @*<select id="PipelineStageId1"></select>*@
+                                </div>
+
+                                <div class="" style="padding-top:1em;padding-bottom:1em">
+                                    <label>TestCaseType: <i class="required">*</i></label>
+
+                                    @Html.DropDownList("TestCaseTypeId", new SelectList(ViewBag.testCasetypelist, "TestCaseTypeId", "TestCaseType1"), "--Select--", new { @style = "width:170px;height:30px;border-radius:10px;" })
+                                    @*@Html.DropDownList(ole,new SelectList(ViewBag.pipelinelist,"PipelineStageId", "PipelineStage1"),"--Select--",htmlAttributes:new { })*@
+                                    @*<input type="text" class="gj-textbox-md" id="TestCaseTypeId">*@
+                                </div>
+
                                 <div class="">
-                                    <label>TestCase Name</label>
-                                    <input type="text" class="gj-textbox-md" id="TestCaseName">
+                                    <label>TestSuite Description:</label>
+                                    <input type="text" class="gj-textbox-md" id="Description" placeholder="TestCase Description..." />
                                 </div>
                                 <div class="">
-                                    <label>PipelineStageId</label>
-                                    <select id="PipelineStageId1"></select>
-                                </div>
-                                <div class="">
-                                    <label>TestCaseTypeId</label>
-                                    <input type="text" class="gj-textbox-md" id="TestCaseTypeId">
-                                </div>
-                                <div class="">
-                                    <label>TestSuite Description</label>
-                                    <input type="text" class="gj-textbox-md" id="Description" />
-                                </div>
-                                <div class="">
-                                    <label>IsActive</label>
+                                    <label>IsActive:</label>
                                     <input type="checkbox" class="gj-checkbox-md" id="IsActive1" />
                                 </div>
                                 <div class="">
-                                    <label>IsObsolete</label>
+                                    <label>IsObsolete:</label>
                                     <input id="IsObsolete" type="checkbox" class="gj-checkbox-bootstrap" onclick="showMe('Obsolete', this)">
                                 </div>
                                 <div id="Obsolete" class="gj-display-none">
-                                    <label>Obsolete Reason</label>
-                                    <input type="text" class="gj-textbox-md" id="ObsoleteReason" />
+                                    <label>Obsolete Reason:</label>
+                                    <input type="text" class="gj-textbox-md" id="ObsoleteReason" placeholder="Obsolute Reason..." />
                                 </div>
                                 <div class="">
                                     @*<label>CreatedDate</label>*@
                                     <input type="hidden" class="gj-textbox-md" id="CreatedDate" />
                                 </div>
                                 <div class="">
-                                    <label>CreateBy</label>
-                                    <input type="text" class="gj-textbox-md" id="CreatedBy" />
+                                    <label>CreateBy:</label>
+                                    <input type="text" class="gj-textbox-md" id="CreatedBy1" placeholder="Created By..." />
                                 </div>
                             </div>
                             <div data-role="footer">
-                                <button type="button" id="tbtnCancel" class="gj-button-md">Cancel</button>
                                 <button type="button" id="tbtnSave" class="gj-button-md">Save</button>
-                                <button type="button" id="tbtnDelete" class="gj-button-md">Delete</button>
                                 <button type="button" id="tbtnUpdate" class="gj-button-md">Update</button>
+                                <button type="button" id="tbtnDelete" class="gj-button-md">Delete</button>
+                                <button type="button" id="tbtnCancel" class="gj-button-md">Cancel</button>
                             </div>
                         </div>
 
+                  
+
+                        @*//Testcase ROW Params Add dialog*@
+                        <div id="dialogparamsR" class="gj-display-none">
+                            <div data-role="body">
+                                <input type="hidden" id="RowTestCaseTypeId" />
+                                <div class="">
+                                    <label>Table Name:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="Rtablename" placeholder="Tablename..." required>
+                                </div>
+                                <div class="">
+                                    <label>Source File Path: <i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="RSourceFilePath" placeholder="SourceFilePath..." />
+                                </div>
+                                <div class="">
+                                    <label>Destination File Path:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="RDestinationFilePath" placeholder="DestinationFilePath..." />
+                                </div>
+                                <div class="">
+                                    <label>Files Columns Count:<i class="required">*</i></label>
+                                    <input type="number" class="gj-textbox-md" id="RFilesColumnsCount" placeholder="Files Columns Count..." />
+                                </div>
+                            </div>
+                            <div data-role="footer">
+                                <button type="button" class="gj-button-md paramssave">Save</button>
+                                @*<button type="button" id="RowbtnUpdate" class="gj-button-md">Update</button>
+                <button type="button" id="RowbtnDelete" class="gj-button-md">Delete</button>*@
+                                <button type="button" class="gj-button-md paramsclose">Cancel</button>
+                            </div>
+                        </div>
+
+                        @*//Testcase primarykey Params Add dialog*@
+                        <div id="dialogparamsPrimarykey" class="gj-display-none">
+                            <div data-role="body">
+                                <input type="hidden" id="PrimarykeyTestCaseId" />
+                                <div class="">
+                                    <label>Table Name:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="PrimaryKeytablename" placeholder="Tablename..." required>
+                                </div>
+                                <div class="">
+                                    <label>PrimaryKey Column:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="PrimaryKeyColumn" placeholder="PrimaryKey Column Name..." />
+                                </div>
+                            </div>
+                            <div data-role="footer">
+                                <button type="button" class="gj-button-md paramssave">Save</button>
+                                @*<button type="button" id="RowbtnUpdate" class="gj-button-md">Update</button>
+                <button type="button" id="RowbtnDelete" class="gj-button-md">Delete</button>*@
+                                <button type="button" class="gj-button-md paramsclose">Cancel</button>
+                            </div>
+                        </div>
+
+
+                        @*//Testcase FK Params Add dialog*@
+                        <div id="dialogparamsFK" class="gj-display-none">
+                            <div data-role="body">
+                                <input type="hidden" id="FKTestCaseId" />
+                                <div class="">
+                                    <label>Primarykey Table Name:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="PKtablename" placeholder="PrimaryKey Tablename..." required>
+                                </div>
+                                <div class="">
+                                    <label>PrimaryKey Column:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="PKColumnname" placeholder="PrimaryKey Column Name..." />
+                                </div>
+                                 <div class="">
+                                    <label>ForeignKey Table Name:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="FKtablename" placeholder="ForeignKey Tablename..." required>
+                                </div>
+                                <div class="">
+                                    <label>ForeignKey Column:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="FKColumnname" placeholder="ForeignKey Column Name..." />
+                                </div>
+                            </div>
+                            <div data-role="footer">
+                                <button type="button" class="gj-button-md paramssave">Save</button>
+                                @*<button type="button" id="RowbtnUpdate" class="gj-button-md">Update</button>
+                <button type="button" id="RowbtnDelete" class="gj-button-md">Delete</button>*@
+                                <button type="button" class="gj-button-md paramsclose">Cancel</button>
+                            </div>
+                        </div>
+
+                        @*//Testcase Valuecheck Params Add dialog*@
+                        <div id="dialogparamsValuecheck" class="gj-display-none">
+                            <div data-role="body">  
+                                <input type="hidden" id="VCTestCaseTypeId" />
+                                <div class="">
+                                    <label>Table Name:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="VCtablename" placeholder="Tablename..." required>
+                                </div>
+                                <div class="">
+                                    <label>PrimaryKey ColumnName:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="VCPKColumnname" placeholder="PrimaryKey Column Name..." />
+                                </div>
+                                <div class="">
+                                    <label>ValueCheck ColumnName:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="VCColumnname" placeholder="PrimaryKey Column Name..." />
+                                </div>
+                                <div class="">
+                                    <label>Destination File Path:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="VCDestinationFilePath" placeholder="DestinationFilePath..." />
+                                </div>
+                                <div class="">
+                                    <label>Files Columns Count:<i class="required">*</i></label>
+                                    <input type="number" class="gj-textbox-md" id="VCFilesColumnsCount" placeholder="Files Columns Count..." />
+                                </div>
+                                <div class="">
+                                    <label>Files Columns Name:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="VCFilesColumnsName" placeholder="Files Columns Name..." />
+                                </div>
+                                <div class="">
+                                    <label>Source whereClauseFilter:<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="VCSourcewhereClauseFilter" placeholder="Source whereClauseFilter..." />
+                                </div>
+                                <div class="">
+                                    <label>Destination whereClauseFilter<i class="required">*</i></label>
+                                    <input type="text" class="gj-textbox-md" id="VCDestinationwhereClauseFilter" placeholder="Destination whereClauseFilter..." />
+                                </div>
+                            </div>
+                            <div data-role="footer">
+                                <button type="button" class="gj-button-md paramssave">Save</button>
+                                @*<button type="button" id="RowbtnUpdate" class="gj-button-md">Update</button>
+        <button type="button" id="RowbtnDelete" class="gj-button-md">Delete</button>*@
+                                <button type="button" class="gj-button-md paramsclose">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-           
+
             </div>
-            
+
         </div>
         <!-- /.container-fluid -->
     </div>
@@ -561,7 +363,7 @@
 
 
 @*}
-    else
-    {
-        <meta http-equiv="refresh" content="0;url=/Validation/LandingPage/?#0" />
-    }*@
+else
+{
+    <meta http-equiv="refresh" content="0;url=/Validation/LandingPage/?#0" />
+}*@

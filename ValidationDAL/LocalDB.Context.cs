@@ -15,10 +15,10 @@ namespace ValidationDAL
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ValidationDBServer : DbContext
+    public partial class ValidationDBContext : DbContext
     {
-        public ValidationDBServer()
-            : base("name=ValidationDBServer")
+        public ValidationDBContext()
+            : base("name=ValidationDBContext")
         {
         }
     
@@ -34,12 +34,31 @@ namespace ValidationDAL
         public virtual DbSet<PipelineStage> PipelineStages { get; set; }
         public virtual DbSet<Scheduler> Schedulers { get; set; }
         public virtual DbSet<TestCase> TestCases { get; set; }
+        public virtual DbSet<TestCaseParameterAccountCheck> TestCaseParameterAccountChecks { get; set; }
+        public virtual DbSet<TestCaseParameterCubeRevenueAllUp> TestCaseParameterCubeRevenueAllUps { get; set; }
+        public virtual DbSet<TestCaseParameterCubeRevenueAllUpsByDimension> TestCaseParameterCubeRevenueAllUpsByDimensions { get; set; }
+        public virtual DbSet<TestCaseParameterForAccrualDailyDateCheck> TestCaseParameterForAccrualDailyDateChecks { get; set; }
+        public virtual DbSet<TestCaseParameterForCubeScenario> TestCaseParameterForCubeScenarios { get; set; }
+        public virtual DbSet<TestCaseParameterForeignKey> TestCaseParameterForeignKeys { get; set; }
+        public virtual DbSet<TestCaseParameterForFreshnessCheck> TestCaseParameterForFreshnessChecks { get; set; }
+        public virtual DbSet<TestCaseParameterForWwic> TestCaseParameterForWwics { get; set; }
+        public virtual DbSet<TestCaseParameterForWwicExceptional> TestCaseParameterForWwicExceptionals { get; set; }
+        public virtual DbSet<TestCaseParameterPrimaryKey> TestCaseParameterPrimaryKeys { get; set; }
+        public virtual DbSet<TestCaseParameterQvtValidation> TestCaseParameterQvtValidations { get; set; }
+        public virtual DbSet<TestCaseParameterQvtValidationException> TestCaseParameterQvtValidationExceptions { get; set; }
+        public virtual DbSet<TestCaseParameterRowCount> TestCaseParameterRowCounts { get; set; }
+        public virtual DbSet<TestCaseParameterRowCountExceptional> TestCaseParameterRowCountExceptionals { get; set; }
+        public virtual DbSet<TestCaseParameterValueCheck> TestCaseParameterValueChecks { get; set; }
         public virtual DbSet<TestCaseType> TestCaseTypes { get; set; }
         public virtual DbSet<TestSuite> TestSuites { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Editor> Editors { get; set; }
         public virtual DbSet<Executor> Executors { get; set; }
         public virtual DbSet<TestCaseLog> TestCaseLogs { get; set; }
+        public virtual DbSet<TestCaseParameterCube> TestCaseParameterCubes { get; set; }
+        public virtual DbSet<TestCaseParametersForCubeScenariosAssociatedTable> TestCaseParametersForCubeScenariosAssociatedTables { get; set; }
+        public virtual DbSet<TestCaseParametersForQvtValidationAssociatedTable> TestCaseParametersForQvtValidationAssociatedTables { get; set; }
+        public virtual DbSet<TestCaseParametersForWwicExceptionalAssociatedTable> TestCaseParametersForWwicExceptionalAssociatedTables { get; set; }
         public virtual DbSet<TestCaseResultType> TestCaseResultTypes { get; set; }
         public virtual DbSet<TestInstance> TestInstances { get; set; }
     

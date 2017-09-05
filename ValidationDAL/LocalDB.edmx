@@ -1,0 +1,1770 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ValidationDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.Editor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Editor">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Start" Type="datetime" />
+          <Property Name="End" Type="datetime" />
+          <Property Name="StartTimezone" Type="datetime" />
+          <Property Name="EndTimezone" Type="datetime" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="RecurrenceID" Type="int" />
+          <Property Name="RecurrenceRule" Type="varchar" MaxLength="100" />
+          <Property Name="RecurrenceException" Type="int" />
+          <Property Name="IsAllDay" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.Executor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Executor">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PipelineStage">
+          <Key>
+            <PropertyRef Name="PipelineStageId" />
+          </Key>
+          <Property Name="PipelineStageId" Type="int" Nullable="false" />
+          <Property Name="PipelineStage" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PipelineStageDescription" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Scheduler">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="End" Type="datetime" Nullable="false" />
+          <Property Name="StartTimezone" Type="varchar" MaxLength="50" />
+          <Property Name="EndTimezone" Type="varchar" MaxLength="50" />
+          <Property Name="RecurrenceRule" Type="varchar" MaxLength="100" />
+          <Property Name="RecurrenceID" Type="int" />
+          <Property Name="RecurrenceException" Type="varchar" MaxLength="100" />
+          <Property Name="IsAllDay" Type="bit" />
+        </EntityType>
+        <EntityType Name="TestCase">
+          <Key>
+            <PropertyRef Name="TestCaseId" />
+          </Key>
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="TestSuiteId" Type="int" Nullable="false" />
+          <Property Name="PipelineStageId" Type="int" Nullable="false" />
+          <Property Name="TestCaseTypeId" Type="int" Nullable="false" />
+          <Property Name="TestCaseName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsObsolete" Type="bit" Nullable="false" />
+          <Property Name="ObsoleteReason" Type="varchar" MaxLength="300" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestCaseLog">
+          <Key>
+            <PropertyRef Name="TestCaseLogId" />
+            <PropertyRef Name="TestInstanceId" />
+            <PropertyRef Name="TestCaseId" />
+          </Key>
+          <Property Name="TestCaseLogId" Type="int" Nullable="false" />
+          <Property Name="TestInstanceId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="ResultType" Type="int" />
+          <Property Name="EventStartTime" Type="datetime" />
+          <Property Name="EventEndTime" Type="datetime" />
+          <Property Name="Exception" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterAccountCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterAccountCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterAccountCheckId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="SourceDatabase" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SourceQuery" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DestinationDatabase" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DestinationQuery" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseParameterCube' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestCaseParameterCube">
+          <Key>
+            <PropertyRef Name="TestCaseParameterCubeId" />
+            <PropertyRef Name="TestCaseId" />
+            <PropertyRef Name="SqlTableName" />
+            <PropertyRef Name="MdxCubeName" />
+            <PropertyRef Name="CubeTableName" />
+            <PropertyRef Name="CubeColumnName" />
+          </Key>
+          <Property Name="TestCaseParameterCubeId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="SqlTableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MdxCubeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CubeTableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CubeColumnName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterCubeRevenueAllUps">
+          <Key>
+            <PropertyRef Name="TestCaseParameterCubeRevenueAllUpsId" />
+          </Key>
+          <Property Name="TestCaseParameterCubeRevenueAllUpsId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="SourceCube" Type="nvarchar" MaxLength="50" />
+          <Property Name="SourceMdxQuery" Type="varchar" MaxLength="1000" />
+          <Property Name="DestinationMdxQuery" Type="varchar" MaxLength="1000" />
+          <Property Name="Measure" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterCubeRevenueAllUpsByDimension">
+          <Key>
+            <PropertyRef Name="TestCaseParameterCubeRevenueAllUpsByDimensionId" />
+          </Key>
+          <Property Name="TestCaseParameterCubeRevenueAllUpsByDimensionId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="SourceCube" Type="nvarchar" MaxLength="50" />
+          <Property Name="SourceMdxQuery" Type="varchar" MaxLength="5000" />
+          <Property Name="DestinationMdxQuery" Type="varchar" MaxLength="5000" />
+          <Property Name="SourceDimension" Type="varchar" MaxLength="200" />
+          <Property Name="DestinationDimension" Type="varchar" MaxLength="200" />
+          <Property Name="Measure" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForAccrualDailyDateCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForAccrualDailyDateCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterForAccrualDailyDateCheckId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="Query" Type="varchar" MaxLength="2000" />
+          <Property Name="Column1" Type="varchar" MaxLength="50" />
+          <Property Name="Column2" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForCubeScenarios">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForCubeScenariosId" />
+          </Key>
+          <Property Name="TestCaseParameterForCubeScenariosId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="SourceDatabase" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SourceStoredProc" Type="varchar" MaxLength="5000" />
+          <Property Name="TargetCube" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TargetMdxQuery" Type="varchar" MaxLength="5000" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForeignKey">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForeignKeyId" />
+          </Key>
+          <Property Name="TestCaseParameterForeignKeyId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="ForeignKeyTableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ForeignKeyColumn" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PrimaryKeyTableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PrimaryKeyColumn" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForFreshnessCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForFreshnessCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterForFreshnessCheckId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="Source" Type="varchar" MaxLength="50" />
+          <Property Name="SourceQuery" Type="varchar" MaxLength="1000" />
+          <Property Name="DestinationQuery" Type="varchar" MaxLength="1000" />
+          <Property Name="SourceColumn" Type="varchar" MaxLength="1000" />
+          <Property Name="DestinationColumn" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForWwic">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForWwicId" />
+          </Key>
+          <Property Name="TestCaseParameterForWwicId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="SourceDatabase" Type="varchar" MaxLength="50" />
+          <Property Name="SourceQuery" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TargetDatabase" Type="varchar" MaxLength="50" />
+          <Property Name="TargetQuery" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForWwicExceptional">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForWwicExceptionalId" />
+          </Key>
+          <Property Name="TestCaseParameterForWwicExceptionalId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="SourceDatabase" Type="varchar" MaxLength="50" />
+          <Property Name="SourceQuery" Type="nvarchar" MaxLength="2000" />
+          <Property Name="TargetDatabase" Type="varchar" MaxLength="50" />
+          <Property Name="TargetQuery" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterPrimaryKey">
+          <Key>
+            <PropertyRef Name="TestCaseParameterPrimaryKeyId" />
+          </Key>
+          <Property Name="TestCaseParameterPrimaryKeyId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="TableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PrimaryKeyColumn" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterQvtValidation">
+          <Key>
+            <PropertyRef Name="TestCaseParameterQvtValidationId" />
+          </Key>
+          <Property Name="TestCaseParameterQvtValidationId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="ExcelFile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TempTable" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ValidationStoredProc" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="StoredProcArg1" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="StoredProcArg2" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="StoredProcArg3" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterQvtValidationException">
+          <Key>
+            <PropertyRef Name="TestCaseParameterQvtValidationExceptionId" />
+          </Key>
+          <Property Name="TestCaseParameterQvtValidationExceptionId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="ExcelFile" Type="nvarchar" MaxLength="50" />
+          <Property Name="TempTable" Type="varchar" MaxLength="1000" />
+          <Property Name="ValidationStoredProc" Type="varchar" MaxLength="1000" />
+          <Property Name="StoredProcArg1" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="StoredProcArg2" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="StoredProcArg3" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterRowCount">
+          <Key>
+            <PropertyRef Name="TestCaseParameterRowCountId" />
+          </Key>
+          <Property Name="TestCaseParameterRowCountId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="TableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SourceFilePath" Type="varchar" MaxLength="255" />
+          <Property Name="DestinationFilePath" Type="varchar" MaxLength="255" />
+          <Property Name="FileColumnsCount" Type="smallint" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterRowCountExceptional">
+          <Key>
+            <PropertyRef Name="TestCaseParameterRowCountExceptionalId" />
+          </Key>
+          <Property Name="TestCaseParameterRowCountExceptionalId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="TableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SourceFilePath" Type="varchar" MaxLength="255" />
+          <Property Name="DestinationFilePath" Type="varchar" MaxLength="255" />
+          <Property Name="FileColumnsCount" Type="smallint" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseParametersForCubeScenariosAssociatedTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestCaseParametersForCubeScenariosAssociatedTable">
+          <Key>
+            <PropertyRef Name="TestCaseParametersForCubeScenariosAssociatedId" />
+            <PropertyRef Name="TestCaseParameterForCubeScenariosId" />
+          </Key>
+          <Property Name="TestCaseParametersForCubeScenariosAssociatedId" Type="int" Nullable="false" />
+          <Property Name="TestCaseParameterForCubeScenariosId" Type="int" Nullable="false" />
+          <Property Name="Parameter1" Type="varchar" MaxLength="255" />
+          <Property Name="Parameter2" Type="varchar" MaxLength="255" />
+          <Property Name="Parameter3" Type="varchar" MaxLength="255" />
+          <Property Name="Parameter4" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseParametersForQvtValidationAssociatedTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestCaseParametersForQvtValidationAssociatedTable">
+          <Key>
+            <PropertyRef Name="TestCaseParametersForQvtValidationAssociatedTableId" />
+            <PropertyRef Name="TestCaseParameterQvtValidationExceptionId" />
+          </Key>
+          <Property Name="TestCaseParametersForQvtValidationAssociatedTableId" Type="int" Nullable="false" />
+          <Property Name="TestCaseParameterQvtValidationExceptionId" Type="int" Nullable="false" />
+          <Property Name="Parameter1" Type="varchar" MaxLength="255" />
+          <Property Name="Parameter2" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseParametersForWwicExceptionalAssociatedTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestCaseParametersForWwicExceptionalAssociatedTable">
+          <Key>
+            <PropertyRef Name="TestCaseParametersForWwicAssociatedTableId" />
+            <PropertyRef Name="TestCaseParameterForWwicExceptionalId" />
+          </Key>
+          <Property Name="TestCaseParametersForWwicAssociatedTableId" Type="int" Nullable="false" />
+          <Property Name="TestCaseParameterForWwicExceptionalId" Type="int" Nullable="false" />
+          <Property Name="Parameter1" Type="varchar" MaxLength="255" />
+          <Property Name="Parameter2" Type="varchar" MaxLength="255" />
+          <Property Name="Parameter3" Type="varchar" MaxLength="255" />
+          <Property Name="Parameter4" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterValueCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterValueCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterValueCheckId" Type="int" Nullable="false" />
+          <Property Name="TestCaseId" Type="int" Nullable="false" />
+          <Property Name="TableName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PrimaryKeyColumnName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ValueCheckColumnName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DestinationFilePath" Type="varchar" MaxLength="255" />
+          <Property Name="FileColumnsCount" Type="smallint" />
+          <Property Name="FileColumnsName" Type="varchar" MaxLength="255" />
+          <Property Name="SourceWhereClauseFilter" Type="varchar" MaxLength="1000" />
+          <Property Name="DestinationWhereClauseFilter" Type="varchar" MaxLength="1000" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseResultType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestCaseResultType">
+          <Key>
+            <PropertyRef Name="TestCaseResultTypeId" />
+            <PropertyRef Name="ResultType" />
+          </Key>
+          <Property Name="TestCaseResultTypeId" Type="int" Nullable="false" />
+          <Property Name="ResultType" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ResultTypeDescription" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestCaseType">
+          <Key>
+            <PropertyRef Name="TestCaseTypeId" />
+          </Key>
+          <Property Name="TestCaseTypeId" Type="int" Nullable="false" />
+          <Property Name="TestCaseType" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TestCaseTypeDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TestInstance">
+          <Key>
+            <PropertyRef Name="TestInstanceId" />
+            <PropertyRef Name="TestInstanceName" />
+            <PropertyRef Name="IsMailSent" />
+          </Key>
+          <Property Name="TestInstanceId" Type="int" Nullable="false" />
+          <Property Name="TestInstanceDateKey" Type="int" />
+          <Property Name="TestInstanceName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IsMailSent" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestSuite">
+          <Key>
+            <PropertyRef Name="TestSuiteId" />
+          </Key>
+          <Property Name="TestSuiteId" Type="int" Nullable="false" />
+          <Property Name="TestSuite" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TestSuiteDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="TestSuiteOwner" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullName" Type="varchar" MaxLength="50" />
+          <Property Name="userName" Type="varchar" MaxLength="50" />
+          <Property Name="userEmail" Type="varchar" MaxLength="50" />
+          <Property Name="userPassword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="fk_pipelineStageId">
+          <End Role="PipelineStage" Type="Self.PipelineStage" Multiplicity="1" />
+          <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PipelineStage">
+              <PropertyRef Name="PipelineStageId" />
+            </Principal>
+            <Dependent Role="TestCase">
+              <PropertyRef Name="PipelineStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_testCasetypeId">
+          <End Role="TestCaseType" Type="Self.TestCaseType" Multiplicity="1" />
+          <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestCaseType">
+              <PropertyRef Name="TestCaseTypeId" />
+            </Principal>
+            <Dependent Role="TestCase">
+              <PropertyRef Name="TestCaseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_testSuiteId">
+          <End Role="TestSuite" Type="Self.TestSuite" Multiplicity="1" />
+          <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestSuite">
+              <PropertyRef Name="TestSuiteId" />
+            </Principal>
+            <Dependent Role="TestCase">
+              <PropertyRef Name="TestSuiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_AddTestCase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TestSuiteId" Type="int" Mode="In" />
+          <Parameter Name="PipeLineStageId" Type="int" Mode="In" />
+          <Parameter Name="TestCaseTypeId" Type="int" Mode="In" />
+          <Parameter Name="TestCaseName" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="IsObsolete" Type="bit" Mode="In" />
+          <Parameter Name="ObsoleteReason" Type="varchar" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_AdminAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fullName" Type="varchar" Mode="In" />
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="userEmail" Type="varchar" Mode="In" />
+          <Parameter Name="userPassword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_EditornAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fullName" Type="varchar" Mode="In" />
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="userEmail" Type="varchar" Mode="In" />
+          <Parameter Name="userPassword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ExecutornAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fullName" Type="varchar" Mode="In" />
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="userEmail" Type="varchar" Mode="In" />
+          <Parameter Name="userPassword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ManagerAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fullName" Type="varchar" Mode="In" />
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="userEmail" Type="varchar" Mode="In" />
+          <Parameter Name="userPassword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_OperatorAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fullName" Type="varchar" Mode="In" />
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="userEmail" Type="varchar" Mode="In" />
+          <Parameter Name="userPassword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ValidationDBModel1StoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operator" EntityType="Self.Operator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PipelineStage" EntityType="Self.PipelineStage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCase" EntityType="Self.TestCase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterAccountCheck" EntityType="Self.TestCaseParameterAccountCheck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterCubeRevenueAllUps" EntityType="Self.TestCaseParameterCubeRevenueAllUps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterCubeRevenueAllUpsByDimension" EntityType="Self.TestCaseParameterCubeRevenueAllUpsByDimension" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterForAccrualDailyDateCheck" EntityType="Self.TestCaseParameterForAccrualDailyDateCheck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterForCubeScenarios" EntityType="Self.TestCaseParameterForCubeScenarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterForeignKey" EntityType="Self.TestCaseParameterForeignKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterForFreshnessCheck" EntityType="Self.TestCaseParameterForFreshnessCheck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterForWwic" EntityType="Self.TestCaseParameterForWwic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterForWwicExceptional" EntityType="Self.TestCaseParameterForWwicExceptional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterPrimaryKey" EntityType="Self.TestCaseParameterPrimaryKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterQvtValidation" EntityType="Self.TestCaseParameterQvtValidation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterQvtValidationException" EntityType="Self.TestCaseParameterQvtValidationException" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterRowCount" EntityType="Self.TestCaseParameterRowCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterRowCountExceptional" EntityType="Self.TestCaseParameterRowCountExceptional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseParameterValueCheck" EntityType="Self.TestCaseParameterValueCheck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCaseType" EntityType="Self.TestCaseType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestSuite" EntityType="Self.TestSuite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Editor" EntityType="Self.Editor" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Editor].[UserId] AS [UserId], 
+    [Editor].[UserName] AS [UserName], 
+    [Editor].[Password] AS [Password], 
+    [Editor].[UserEmail] AS [UserEmail], 
+    [Editor].[FullName] AS [FullName]
+    FROM [dbo].[Editor] AS [Editor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Executor" EntityType="Self.Executor" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Executor].[UserId] AS [UserId], 
+    [Executor].[UserName] AS [UserName], 
+    [Executor].[Password] AS [Password], 
+    [Executor].[UserEmail] AS [UserEmail], 
+    [Executor].[FullName] AS [FullName]
+    FROM [dbo].[Executor] AS [Executor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TestCaseLog" EntityType="Self.TestCaseLog" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestCaseLog].[TestCaseLogId] AS [TestCaseLogId], 
+    [TestCaseLog].[TestInstanceId] AS [TestInstanceId], 
+    [TestCaseLog].[TestCaseId] AS [TestCaseId], 
+    [TestCaseLog].[ResultType] AS [ResultType], 
+    [TestCaseLog].[EventStartTime] AS [EventStartTime], 
+    [TestCaseLog].[EventEndTime] AS [EventEndTime], 
+    [TestCaseLog].[Exception] AS [Exception], 
+    [TestCaseLog].[CreatedDate] AS [CreatedDate], 
+    [TestCaseLog].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseLog] AS [TestCaseLog]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TestCaseParameterCube" EntityType="Self.TestCaseParameterCube" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestCaseParameterCube].[TestCaseParameterCubeId] AS [TestCaseParameterCubeId], 
+    [TestCaseParameterCube].[TestCaseId] AS [TestCaseId], 
+    [TestCaseParameterCube].[SqlTableName] AS [SqlTableName], 
+    [TestCaseParameterCube].[MdxCubeName] AS [MdxCubeName], 
+    [TestCaseParameterCube].[CubeTableName] AS [CubeTableName], 
+    [TestCaseParameterCube].[CubeColumnName] AS [CubeColumnName], 
+    [TestCaseParameterCube].[CreatedDate] AS [CreatedDate], 
+    [TestCaseParameterCube].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseParameterCube] AS [TestCaseParameterCube]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TestCaseParametersForCubeScenariosAssociatedTable" EntityType="Self.TestCaseParametersForCubeScenariosAssociatedTable" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[TestCaseParametersForCubeScenariosAssociatedId] AS [TestCaseParametersForCubeScenariosAssociatedId], 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[TestCaseParameterForCubeScenariosId] AS [TestCaseParameterForCubeScenariosId], 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[Parameter1] AS [Parameter1], 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[Parameter2] AS [Parameter2], 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[Parameter3] AS [Parameter3], 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[Parameter4] AS [Parameter4], 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[CreatedDate] AS [CreatedDate], 
+    [TestCaseParametersForCubeScenariosAssociatedTable].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseParametersForCubeScenariosAssociatedTable] AS [TestCaseParametersForCubeScenariosAssociatedTable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TestCaseParametersForQvtValidationAssociatedTable" EntityType="Self.TestCaseParametersForQvtValidationAssociatedTable" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestCaseParametersForQvtValidationAssociatedTable].[TestCaseParametersForQvtValidationAssociatedTableId] AS [TestCaseParametersForQvtValidationAssociatedTableId], 
+    [TestCaseParametersForQvtValidationAssociatedTable].[TestCaseParameterQvtValidationExceptionId] AS [TestCaseParameterQvtValidationExceptionId], 
+    [TestCaseParametersForQvtValidationAssociatedTable].[Parameter1] AS [Parameter1], 
+    [TestCaseParametersForQvtValidationAssociatedTable].[Parameter2] AS [Parameter2], 
+    [TestCaseParametersForQvtValidationAssociatedTable].[CreatedDate] AS [CreatedDate], 
+    [TestCaseParametersForQvtValidationAssociatedTable].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseParametersForQvtValidationAssociatedTable] AS [TestCaseParametersForQvtValidationAssociatedTable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TestCaseParametersForWwicExceptionalAssociatedTable" EntityType="Self.TestCaseParametersForWwicExceptionalAssociatedTable" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[TestCaseParametersForWwicAssociatedTableId] AS [TestCaseParametersForWwicAssociatedTableId], 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[TestCaseParameterForWwicExceptionalId] AS [TestCaseParameterForWwicExceptionalId], 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[Parameter1] AS [Parameter1], 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[Parameter2] AS [Parameter2], 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[Parameter3] AS [Parameter3], 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[Parameter4] AS [Parameter4], 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[CreatedDate] AS [CreatedDate], 
+    [TestCaseParametersForWwicExceptionalAssociatedTable].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseParametersForWwicExceptionalAssociatedTable] AS [TestCaseParametersForWwicExceptionalAssociatedTable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TestCaseResultType" EntityType="Self.TestCaseResultType" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestCaseResultType].[TestCaseResultTypeId] AS [TestCaseResultTypeId], 
+    [TestCaseResultType].[ResultType] AS [ResultType], 
+    [TestCaseResultType].[ResultTypeDescription] AS [ResultTypeDescription], 
+    [TestCaseResultType].[CreatedDate] AS [CreatedDate], 
+    [TestCaseResultType].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseResultType] AS [TestCaseResultType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TestInstance" EntityType="Self.TestInstance" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TestInstance].[TestInstanceId] AS [TestInstanceId], 
+    [TestInstance].[TestInstanceDateKey] AS [TestInstanceDateKey], 
+    [TestInstance].[TestInstanceName] AS [TestInstanceName], 
+    [TestInstance].[Description] AS [Description], 
+    [TestInstance].[IsMailSent] AS [IsMailSent], 
+    [TestInstance].[CreatedDate] AS [CreatedDate], 
+    [TestInstance].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestInstance] AS [TestInstance]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_pipelineStageId" Association="Self.fk_pipelineStageId">
+            <End Role="PipelineStage" EntitySet="PipelineStage" />
+            <End Role="TestCase" EntitySet="TestCase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_testCasetypeId" Association="Self.fk_testCasetypeId">
+            <End Role="TestCaseType" EntitySet="TestCaseType" />
+            <End Role="TestCase" EntitySet="TestCase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_testSuiteId" Association="Self.fk_testSuiteId">
+            <End Role="TestSuite" EntitySet="TestSuite" />
+            <End Role="TestCase" EntitySet="TestCase" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ValidationDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Start" Type="DateTime" Precision="3" />
+          <Property Name="End" Type="DateTime" Precision="3" />
+          <Property Name="StartTimezone" Type="DateTime" Precision="3" />
+          <Property Name="EndTimezone" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RecurrenceID" Type="Int32" />
+          <Property Name="RecurrenceRule" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RecurrenceException" Type="Int32" />
+          <Property Name="IsAllDay" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PipelineStage">
+          <Key>
+            <PropertyRef Name="PipelineStageId" />
+          </Key>
+          <Property Name="PipelineStageId" Type="Int32" Nullable="false" />
+          <Property Name="PipelineStage1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PipelineStageDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TestCases" Relationship="Self.fk_pipelineStageId" FromRole="PipelineStage" ToRole="TestCase" />
+        </EntityType>
+        <EntityType Name="Scheduler">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="End" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartTimezone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EndTimezone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RecurrenceRule" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RecurrenceID" Type="Int32" />
+          <Property Name="RecurrenceException" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsAllDay" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TestCase">
+          <Key>
+            <PropertyRef Name="TestCaseId" />
+          </Key>
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="TestSuiteId" Type="Int32" Nullable="false" />
+          <Property Name="PipelineStageId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsObsolete" Type="Boolean" Nullable="false" />
+          <Property Name="ObsoleteReason" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PipelineStage" Relationship="Self.fk_pipelineStageId" FromRole="TestCase" ToRole="PipelineStage" />
+          <NavigationProperty Name="TestCaseType" Relationship="Self.fk_testCasetypeId" FromRole="TestCase" ToRole="TestCaseType" />
+          <NavigationProperty Name="TestSuite" Relationship="Self.fk_testSuiteId" FromRole="TestCase" ToRole="TestSuite" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterAccountCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterAccountCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterAccountCheckId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="SourceDatabase" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SourceQuery" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DestinationDatabase" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DestinationQuery" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterCubeRevenueAllUp">
+          <Key>
+            <PropertyRef Name="TestCaseParameterCubeRevenueAllUpsId" />
+          </Key>
+          <Property Name="TestCaseParameterCubeRevenueAllUpsId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="SourceCube" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SourceMdxQuery" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationMdxQuery" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterCubeRevenueAllUpsByDimension">
+          <Key>
+            <PropertyRef Name="TestCaseParameterCubeRevenueAllUpsByDimensionId" />
+          </Key>
+          <Property Name="TestCaseParameterCubeRevenueAllUpsByDimensionId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="SourceCube" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SourceMdxQuery" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationMdxQuery" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="SourceDimension" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationDimension" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Measure" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForAccrualDailyDateCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForAccrualDailyDateCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterForAccrualDailyDateCheckId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="Query" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Column1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Column2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForCubeScenario">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForCubeScenariosId" />
+          </Key>
+          <Property Name="TestCaseParameterForCubeScenariosId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="SourceDatabase" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SourceStoredProc" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="TargetCube" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TargetMdxQuery" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForeignKey">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForeignKeyId" />
+          </Key>
+          <Property Name="TestCaseParameterForeignKeyId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="ForeignKeyTableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ForeignKeyColumn" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrimaryKeyTableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrimaryKeyColumn" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForFreshnessCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForFreshnessCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterForFreshnessCheckId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SourceQuery" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationQuery" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SourceColumn" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationColumn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForWwic">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForWwicId" />
+          </Key>
+          <Property Name="TestCaseParameterForWwicId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="SourceDatabase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SourceQuery" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TargetDatabase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TargetQuery" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterForWwicExceptional">
+          <Key>
+            <PropertyRef Name="TestCaseParameterForWwicExceptionalId" />
+          </Key>
+          <Property Name="TestCaseParameterForWwicExceptionalId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="SourceDatabase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SourceQuery" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="TargetDatabase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TargetQuery" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterPrimaryKey">
+          <Key>
+            <PropertyRef Name="TestCaseParameterPrimaryKeyId" />
+          </Key>
+          <Property Name="TestCaseParameterPrimaryKeyId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="TableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrimaryKeyColumn" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterQvtValidation">
+          <Key>
+            <PropertyRef Name="TestCaseParameterQvtValidationId" />
+          </Key>
+          <Property Name="TestCaseParameterQvtValidationId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="ExcelFile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TempTable" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ValidationStoredProc" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StoredProcArg1" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StoredProcArg2" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StoredProcArg3" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterQvtValidationException">
+          <Key>
+            <PropertyRef Name="TestCaseParameterQvtValidationExceptionId" />
+          </Key>
+          <Property Name="TestCaseParameterQvtValidationExceptionId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="ExcelFile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TempTable" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ValidationStoredProc" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="StoredProcArg1" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StoredProcArg2" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StoredProcArg3" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterRowCount">
+          <Key>
+            <PropertyRef Name="TestCaseParameterRowCountId" />
+          </Key>
+          <Property Name="TestCaseParameterRowCountId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="TableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SourceFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileColumnsCount" Type="Int16" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterRowCountExceptional">
+          <Key>
+            <PropertyRef Name="TestCaseParameterRowCountExceptionalId" />
+          </Key>
+          <Property Name="TestCaseParameterRowCountExceptionalId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="TableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SourceFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileColumnsCount" Type="Int16" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterValueCheck">
+          <Key>
+            <PropertyRef Name="TestCaseParameterValueCheckId" />
+          </Key>
+          <Property Name="TestCaseParameterValueCheckId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="TableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrimaryKeyColumnName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ValueCheckColumnName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DestinationFilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileColumnsCount" Type="Int16" />
+          <Property Name="FileColumnsName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SourceWhereClauseFilter" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationWhereClauseFilter" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseType">
+          <Key>
+            <PropertyRef Name="TestCaseTypeId" />
+          </Key>
+          <Property Name="TestCaseTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseType1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TestCaseTypeDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TestCases" Relationship="Self.fk_testCasetypeId" FromRole="TestCaseType" ToRole="TestCase" />
+        </EntityType>
+        <EntityType Name="TestSuite">
+          <Key>
+            <PropertyRef Name="TestSuiteId" />
+          </Key>
+          <Property Name="TestSuiteId" Type="Int32" Nullable="false" />
+          <Property Name="TestSuite1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TestSuiteDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="TestSuiteOwner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TestCases" Relationship="Self.fk_testSuiteId" FromRole="TestSuite" ToRole="TestCase" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Editor">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Executor">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseLog">
+          <Key>
+            <PropertyRef Name="TestCaseLogId" />
+            <PropertyRef Name="TestInstanceId" />
+            <PropertyRef Name="TestCaseId" />
+          </Key>
+          <Property Name="TestCaseLogId" Type="Int32" Nullable="false" />
+          <Property Name="TestInstanceId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="ResultType" Type="Int32" />
+          <Property Name="EventStartTime" Type="DateTime" Precision="3" />
+          <Property Name="EventEndTime" Type="DateTime" Precision="3" />
+          <Property Name="Exception" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParameterCube">
+          <Key>
+            <PropertyRef Name="TestCaseParameterCubeId" />
+            <PropertyRef Name="TestCaseId" />
+            <PropertyRef Name="SqlTableName" />
+            <PropertyRef Name="MdxCubeName" />
+            <PropertyRef Name="CubeTableName" />
+            <PropertyRef Name="CubeColumnName" />
+          </Key>
+          <Property Name="TestCaseParameterCubeId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseId" Type="Int32" Nullable="false" />
+          <Property Name="SqlTableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MdxCubeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CubeTableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CubeColumnName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParametersForCubeScenariosAssociatedTable">
+          <Key>
+            <PropertyRef Name="TestCaseParametersForCubeScenariosAssociatedId" />
+            <PropertyRef Name="TestCaseParameterForCubeScenariosId" />
+          </Key>
+          <Property Name="TestCaseParametersForCubeScenariosAssociatedId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseParameterForCubeScenariosId" Type="Int32" Nullable="false" />
+          <Property Name="Parameter1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter4" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParametersForQvtValidationAssociatedTable">
+          <Key>
+            <PropertyRef Name="TestCaseParametersForQvtValidationAssociatedTableId" />
+            <PropertyRef Name="TestCaseParameterQvtValidationExceptionId" />
+          </Key>
+          <Property Name="TestCaseParametersForQvtValidationAssociatedTableId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseParameterQvtValidationExceptionId" Type="Int32" Nullable="false" />
+          <Property Name="Parameter1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseParametersForWwicExceptionalAssociatedTable">
+          <Key>
+            <PropertyRef Name="TestCaseParametersForWwicAssociatedTableId" />
+            <PropertyRef Name="TestCaseParameterForWwicExceptionalId" />
+          </Key>
+          <Property Name="TestCaseParametersForWwicAssociatedTableId" Type="Int32" Nullable="false" />
+          <Property Name="TestCaseParameterForWwicExceptionalId" Type="Int32" Nullable="false" />
+          <Property Name="Parameter1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Parameter4" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestCaseResultType">
+          <Key>
+            <PropertyRef Name="TestCaseResultTypeId" />
+            <PropertyRef Name="ResultType" />
+          </Key>
+          <Property Name="TestCaseResultTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ResultType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResultTypeDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TestInstance">
+          <Key>
+            <PropertyRef Name="TestInstanceId" />
+            <PropertyRef Name="TestInstanceName" />
+            <PropertyRef Name="IsMailSent" />
+          </Key>
+          <Property Name="TestInstanceId" Type="Int32" Nullable="false" />
+          <Property Name="TestInstanceDateKey" Type="Int32" />
+          <Property Name="TestInstanceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsMailSent" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="fk_pipelineStageId">
+          <End Role="PipelineStage" Type="Self.PipelineStage" Multiplicity="1" />
+          <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PipelineStage">
+              <PropertyRef Name="PipelineStageId" />
+            </Principal>
+            <Dependent Role="TestCase">
+              <PropertyRef Name="PipelineStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_testCasetypeId">
+          <End Role="TestCaseType" Type="Self.TestCaseType" Multiplicity="1" />
+          <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestCaseType">
+              <PropertyRef Name="TestCaseTypeId" />
+            </Principal>
+            <Dependent Role="TestCase">
+              <PropertyRef Name="TestCaseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_testSuiteId">
+          <End Role="TestSuite" Type="Self.TestSuite" Multiplicity="1" />
+          <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestSuite">
+              <PropertyRef Name="TestSuiteId" />
+            </Principal>
+            <Dependent Role="TestCase">
+              <PropertyRef Name="TestSuiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ValidationDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Managers" EntityType="Self.Manager" />
+          <EntitySet Name="Operators" EntityType="Self.Operator" />
+          <EntitySet Name="PipelineStages" EntityType="Self.PipelineStage" />
+          <EntitySet Name="Schedulers" EntityType="Self.Scheduler" />
+          <EntitySet Name="TestCases" EntityType="Self.TestCase" />
+          <EntitySet Name="TestCaseParameterAccountChecks" EntityType="Self.TestCaseParameterAccountCheck" />
+          <EntitySet Name="TestCaseParameterCubeRevenueAllUps" EntityType="Self.TestCaseParameterCubeRevenueAllUp" />
+          <EntitySet Name="TestCaseParameterCubeRevenueAllUpsByDimensions" EntityType="Self.TestCaseParameterCubeRevenueAllUpsByDimension" />
+          <EntitySet Name="TestCaseParameterForAccrualDailyDateChecks" EntityType="Self.TestCaseParameterForAccrualDailyDateCheck" />
+          <EntitySet Name="TestCaseParameterForCubeScenarios" EntityType="Self.TestCaseParameterForCubeScenario" />
+          <EntitySet Name="TestCaseParameterForeignKeys" EntityType="Self.TestCaseParameterForeignKey" />
+          <EntitySet Name="TestCaseParameterForFreshnessChecks" EntityType="Self.TestCaseParameterForFreshnessCheck" />
+          <EntitySet Name="TestCaseParameterForWwics" EntityType="Self.TestCaseParameterForWwic" />
+          <EntitySet Name="TestCaseParameterForWwicExceptionals" EntityType="Self.TestCaseParameterForWwicExceptional" />
+          <EntitySet Name="TestCaseParameterPrimaryKeys" EntityType="Self.TestCaseParameterPrimaryKey" />
+          <EntitySet Name="TestCaseParameterQvtValidations" EntityType="Self.TestCaseParameterQvtValidation" />
+          <EntitySet Name="TestCaseParameterQvtValidationExceptions" EntityType="Self.TestCaseParameterQvtValidationException" />
+          <EntitySet Name="TestCaseParameterRowCounts" EntityType="Self.TestCaseParameterRowCount" />
+          <EntitySet Name="TestCaseParameterRowCountExceptionals" EntityType="Self.TestCaseParameterRowCountExceptional" />
+          <EntitySet Name="TestCaseParameterValueChecks" EntityType="Self.TestCaseParameterValueCheck" />
+          <EntitySet Name="TestCaseTypes" EntityType="Self.TestCaseType" />
+          <EntitySet Name="TestSuites" EntityType="Self.TestSuite" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Editors" EntityType="Self.Editor" />
+          <EntitySet Name="Executors" EntityType="Self.Executor" />
+          <EntitySet Name="TestCaseLogs" EntityType="Self.TestCaseLog" />
+          <EntitySet Name="TestCaseParameterCubes" EntityType="Self.TestCaseParameterCube" />
+          <EntitySet Name="TestCaseParametersForCubeScenariosAssociatedTables" EntityType="Self.TestCaseParametersForCubeScenariosAssociatedTable" />
+          <EntitySet Name="TestCaseParametersForQvtValidationAssociatedTables" EntityType="Self.TestCaseParametersForQvtValidationAssociatedTable" />
+          <EntitySet Name="TestCaseParametersForWwicExceptionalAssociatedTables" EntityType="Self.TestCaseParametersForWwicExceptionalAssociatedTable" />
+          <EntitySet Name="TestCaseResultTypes" EntityType="Self.TestCaseResultType" />
+          <EntitySet Name="TestInstances" EntityType="Self.TestInstance" />
+          <AssociationSet Name="fk_pipelineStageId" Association="Self.fk_pipelineStageId">
+            <End Role="PipelineStage" EntitySet="PipelineStages" />
+            <End Role="TestCase" EntitySet="TestCases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_testCasetypeId" Association="Self.fk_testCasetypeId">
+            <End Role="TestCaseType" EntitySet="TestCaseTypes" />
+            <End Role="TestCase" EntitySet="TestCases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_testSuiteId" Association="Self.fk_testSuiteId">
+            <End Role="TestSuite" EntitySet="TestSuites" />
+            <End Role="TestCase" EntitySet="TestCases" />
+          </AssociationSet>
+          <FunctionImport Name="usp_AddTestCase">
+            <Parameter Name="TestSuiteId" Mode="In" Type="Int32" />
+            <Parameter Name="PipeLineStageId" Mode="In" Type="Int32" />
+            <Parameter Name="TestCaseTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="TestCaseName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="IsObsolete" Mode="In" Type="Boolean" />
+            <Parameter Name="ObsoleteReason" Mode="In" Type="String" />
+            <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AdminAdd">
+            <Parameter Name="fullName" Mode="In" Type="String" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="userEmail" Mode="In" Type="String" />
+            <Parameter Name="userPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EditornAdd">
+            <Parameter Name="fullName" Mode="In" Type="String" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="userEmail" Mode="In" Type="String" />
+            <Parameter Name="userPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ExecutornAdd">
+            <Parameter Name="fullName" Mode="In" Type="String" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="userEmail" Mode="In" Type="String" />
+            <Parameter Name="userPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ManagerAdd">
+            <Parameter Name="fullName" Mode="In" Type="String" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="userEmail" Mode="In" Type="String" />
+            <Parameter Name="userPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_OperatorAdd">
+            <Parameter Name="fullName" Mode="In" Type="String" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="userEmail" Mode="In" Type="String" />
+            <Parameter Name="userPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RegisterUser">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ValidationDBModel1StoreContainer" CdmEntityContainer="ValidationDBContext">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="ValidationDBModel1.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="ValidationDBModel1.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="StartTimezone" ColumnName="StartTimezone" />
+                <ScalarProperty Name="EndTimezone" ColumnName="EndTimezone" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RecurrenceID" ColumnName="RecurrenceID" />
+                <ScalarProperty Name="RecurrenceRule" ColumnName="RecurrenceRule" />
+                <ScalarProperty Name="RecurrenceException" ColumnName="RecurrenceException" />
+                <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="ValidationDBModel1.Manager">
+              <MappingFragment StoreEntitySet="Manager">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operators">
+            <EntityTypeMapping TypeName="ValidationDBModel1.Operator">
+              <MappingFragment StoreEntitySet="Operator">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PipelineStages">
+            <EntityTypeMapping TypeName="ValidationDBModel1.PipelineStage">
+              <MappingFragment StoreEntitySet="PipelineStage">
+                <ScalarProperty Name="PipelineStageId" ColumnName="PipelineStageId" />
+                <ScalarProperty Name="PipelineStage1" ColumnName="PipelineStage" />
+                <ScalarProperty Name="PipelineStageDescription" ColumnName="PipelineStageDescription" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedulers">
+            <EntityTypeMapping TypeName="ValidationDBModel1.Scheduler">
+              <MappingFragment StoreEntitySet="Scheduler">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="StartTimezone" ColumnName="StartTimezone" />
+                <ScalarProperty Name="EndTimezone" ColumnName="EndTimezone" />
+                <ScalarProperty Name="RecurrenceRule" ColumnName="RecurrenceRule" />
+                <ScalarProperty Name="RecurrenceID" ColumnName="RecurrenceID" />
+                <ScalarProperty Name="RecurrenceException" ColumnName="RecurrenceException" />
+                <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCases">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCase">
+              <MappingFragment StoreEntitySet="TestCase">
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="TestSuiteId" ColumnName="TestSuiteId" />
+                <ScalarProperty Name="PipelineStageId" ColumnName="PipelineStageId" />
+                <ScalarProperty Name="TestCaseTypeId" ColumnName="TestCaseTypeId" />
+                <ScalarProperty Name="TestCaseName" ColumnName="TestCaseName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsObsolete" ColumnName="IsObsolete" />
+                <ScalarProperty Name="ObsoleteReason" ColumnName="ObsoleteReason" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterAccountChecks">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterAccountCheck">
+              <MappingFragment StoreEntitySet="TestCaseParameterAccountCheck">
+                <ScalarProperty Name="TestCaseParameterAccountCheckId" ColumnName="TestCaseParameterAccountCheckId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="SourceDatabase" ColumnName="SourceDatabase" />
+                <ScalarProperty Name="SourceQuery" ColumnName="SourceQuery" />
+                <ScalarProperty Name="DestinationDatabase" ColumnName="DestinationDatabase" />
+                <ScalarProperty Name="DestinationQuery" ColumnName="DestinationQuery" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterCubeRevenueAllUps">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterCubeRevenueAllUp">
+              <MappingFragment StoreEntitySet="TestCaseParameterCubeRevenueAllUps">
+                <ScalarProperty Name="TestCaseParameterCubeRevenueAllUpsId" ColumnName="TestCaseParameterCubeRevenueAllUpsId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="SourceCube" ColumnName="SourceCube" />
+                <ScalarProperty Name="SourceMdxQuery" ColumnName="SourceMdxQuery" />
+                <ScalarProperty Name="DestinationMdxQuery" ColumnName="DestinationMdxQuery" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterCubeRevenueAllUpsByDimensions">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterCubeRevenueAllUpsByDimension">
+              <MappingFragment StoreEntitySet="TestCaseParameterCubeRevenueAllUpsByDimension">
+                <ScalarProperty Name="TestCaseParameterCubeRevenueAllUpsByDimensionId" ColumnName="TestCaseParameterCubeRevenueAllUpsByDimensionId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="SourceCube" ColumnName="SourceCube" />
+                <ScalarProperty Name="SourceMdxQuery" ColumnName="SourceMdxQuery" />
+                <ScalarProperty Name="DestinationMdxQuery" ColumnName="DestinationMdxQuery" />
+                <ScalarProperty Name="SourceDimension" ColumnName="SourceDimension" />
+                <ScalarProperty Name="DestinationDimension" ColumnName="DestinationDimension" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterForAccrualDailyDateChecks">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterForAccrualDailyDateCheck">
+              <MappingFragment StoreEntitySet="TestCaseParameterForAccrualDailyDateCheck">
+                <ScalarProperty Name="TestCaseParameterForAccrualDailyDateCheckId" ColumnName="TestCaseParameterForAccrualDailyDateCheckId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="Query" ColumnName="Query" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Column2" ColumnName="Column2" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterForCubeScenarios">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterForCubeScenario">
+              <MappingFragment StoreEntitySet="TestCaseParameterForCubeScenarios">
+                <ScalarProperty Name="TestCaseParameterForCubeScenariosId" ColumnName="TestCaseParameterForCubeScenariosId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="SourceDatabase" ColumnName="SourceDatabase" />
+                <ScalarProperty Name="SourceStoredProc" ColumnName="SourceStoredProc" />
+                <ScalarProperty Name="TargetCube" ColumnName="TargetCube" />
+                <ScalarProperty Name="TargetMdxQuery" ColumnName="TargetMdxQuery" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterForeignKeys">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterForeignKey">
+              <MappingFragment StoreEntitySet="TestCaseParameterForeignKey">
+                <ScalarProperty Name="TestCaseParameterForeignKeyId" ColumnName="TestCaseParameterForeignKeyId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="ForeignKeyTableName" ColumnName="ForeignKeyTableName" />
+                <ScalarProperty Name="ForeignKeyColumn" ColumnName="ForeignKeyColumn" />
+                <ScalarProperty Name="PrimaryKeyTableName" ColumnName="PrimaryKeyTableName" />
+                <ScalarProperty Name="PrimaryKeyColumn" ColumnName="PrimaryKeyColumn" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterForFreshnessChecks">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterForFreshnessCheck">
+              <MappingFragment StoreEntitySet="TestCaseParameterForFreshnessCheck">
+                <ScalarProperty Name="TestCaseParameterForFreshnessCheckId" ColumnName="TestCaseParameterForFreshnessCheckId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="SourceQuery" ColumnName="SourceQuery" />
+                <ScalarProperty Name="DestinationQuery" ColumnName="DestinationQuery" />
+                <ScalarProperty Name="SourceColumn" ColumnName="SourceColumn" />
+                <ScalarProperty Name="DestinationColumn" ColumnName="DestinationColumn" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterForWwics">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterForWwic">
+              <MappingFragment StoreEntitySet="TestCaseParameterForWwic">
+                <ScalarProperty Name="TestCaseParameterForWwicId" ColumnName="TestCaseParameterForWwicId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="SourceDatabase" ColumnName="SourceDatabase" />
+                <ScalarProperty Name="SourceQuery" ColumnName="SourceQuery" />
+                <ScalarProperty Name="TargetDatabase" ColumnName="TargetDatabase" />
+                <ScalarProperty Name="TargetQuery" ColumnName="TargetQuery" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterForWwicExceptionals">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterForWwicExceptional">
+              <MappingFragment StoreEntitySet="TestCaseParameterForWwicExceptional">
+                <ScalarProperty Name="TestCaseParameterForWwicExceptionalId" ColumnName="TestCaseParameterForWwicExceptionalId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="SourceDatabase" ColumnName="SourceDatabase" />
+                <ScalarProperty Name="SourceQuery" ColumnName="SourceQuery" />
+                <ScalarProperty Name="TargetDatabase" ColumnName="TargetDatabase" />
+                <ScalarProperty Name="TargetQuery" ColumnName="TargetQuery" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterPrimaryKeys">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterPrimaryKey">
+              <MappingFragment StoreEntitySet="TestCaseParameterPrimaryKey">
+                <ScalarProperty Name="TestCaseParameterPrimaryKeyId" ColumnName="TestCaseParameterPrimaryKeyId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="PrimaryKeyColumn" ColumnName="PrimaryKeyColumn" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterQvtValidations">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterQvtValidation">
+              <MappingFragment StoreEntitySet="TestCaseParameterQvtValidation">
+                <ScalarProperty Name="TestCaseParameterQvtValidationId" ColumnName="TestCaseParameterQvtValidationId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="ExcelFile" ColumnName="ExcelFile" />
+                <ScalarProperty Name="TempTable" ColumnName="TempTable" />
+                <ScalarProperty Name="ValidationStoredProc" ColumnName="ValidationStoredProc" />
+                <ScalarProperty Name="StoredProcArg1" ColumnName="StoredProcArg1" />
+                <ScalarProperty Name="StoredProcArg2" ColumnName="StoredProcArg2" />
+                <ScalarProperty Name="StoredProcArg3" ColumnName="StoredProcArg3" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterQvtValidationExceptions">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterQvtValidationException">
+              <MappingFragment StoreEntitySet="TestCaseParameterQvtValidationException">
+                <ScalarProperty Name="TestCaseParameterQvtValidationExceptionId" ColumnName="TestCaseParameterQvtValidationExceptionId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="ExcelFile" ColumnName="ExcelFile" />
+                <ScalarProperty Name="TempTable" ColumnName="TempTable" />
+                <ScalarProperty Name="ValidationStoredProc" ColumnName="ValidationStoredProc" />
+                <ScalarProperty Name="StoredProcArg1" ColumnName="StoredProcArg1" />
+                <ScalarProperty Name="StoredProcArg2" ColumnName="StoredProcArg2" />
+                <ScalarProperty Name="StoredProcArg3" ColumnName="StoredProcArg3" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterRowCounts">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterRowCount">
+              <MappingFragment StoreEntitySet="TestCaseParameterRowCount">
+                <ScalarProperty Name="TestCaseParameterRowCountId" ColumnName="TestCaseParameterRowCountId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="SourceFilePath" ColumnName="SourceFilePath" />
+                <ScalarProperty Name="DestinationFilePath" ColumnName="DestinationFilePath" />
+                <ScalarProperty Name="FileColumnsCount" ColumnName="FileColumnsCount" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterRowCountExceptionals">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterRowCountExceptional">
+              <MappingFragment StoreEntitySet="TestCaseParameterRowCountExceptional">
+                <ScalarProperty Name="TestCaseParameterRowCountExceptionalId" ColumnName="TestCaseParameterRowCountExceptionalId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="SourceFilePath" ColumnName="SourceFilePath" />
+                <ScalarProperty Name="DestinationFilePath" ColumnName="DestinationFilePath" />
+                <ScalarProperty Name="FileColumnsCount" ColumnName="FileColumnsCount" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterValueChecks">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterValueCheck">
+              <MappingFragment StoreEntitySet="TestCaseParameterValueCheck">
+                <ScalarProperty Name="TestCaseParameterValueCheckId" ColumnName="TestCaseParameterValueCheckId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="PrimaryKeyColumnName" ColumnName="PrimaryKeyColumnName" />
+                <ScalarProperty Name="ValueCheckColumnName" ColumnName="ValueCheckColumnName" />
+                <ScalarProperty Name="DestinationFilePath" ColumnName="DestinationFilePath" />
+                <ScalarProperty Name="FileColumnsCount" ColumnName="FileColumnsCount" />
+                <ScalarProperty Name="FileColumnsName" ColumnName="FileColumnsName" />
+                <ScalarProperty Name="SourceWhereClauseFilter" ColumnName="SourceWhereClauseFilter" />
+                <ScalarProperty Name="DestinationWhereClauseFilter" ColumnName="DestinationWhereClauseFilter" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseTypes">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseType">
+              <MappingFragment StoreEntitySet="TestCaseType">
+                <ScalarProperty Name="TestCaseTypeId" ColumnName="TestCaseTypeId" />
+                <ScalarProperty Name="TestCaseType1" ColumnName="TestCaseType" />
+                <ScalarProperty Name="TestCaseTypeDescription" ColumnName="TestCaseTypeDescription" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestSuites">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestSuite">
+              <MappingFragment StoreEntitySet="TestSuite">
+                <ScalarProperty Name="TestSuiteId" ColumnName="TestSuiteId" />
+                <ScalarProperty Name="TestSuite1" ColumnName="TestSuite" />
+                <ScalarProperty Name="TestSuiteDescription" ColumnName="TestSuiteDescription" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TestSuiteOwner" ColumnName="TestSuiteOwner" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ValidationDBModel1.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Editors">
+            <EntityTypeMapping TypeName="ValidationDBModel1.Editor">
+              <MappingFragment StoreEntitySet="Editor">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Executors">
+            <EntityTypeMapping TypeName="ValidationDBModel1.Executor">
+              <MappingFragment StoreEntitySet="Executor">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseLogs">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseLog">
+              <MappingFragment StoreEntitySet="TestCaseLog">
+                <ScalarProperty Name="TestCaseLogId" ColumnName="TestCaseLogId" />
+                <ScalarProperty Name="TestInstanceId" ColumnName="TestInstanceId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+                <ScalarProperty Name="EventStartTime" ColumnName="EventStartTime" />
+                <ScalarProperty Name="EventEndTime" ColumnName="EventEndTime" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParameterCubes">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParameterCube">
+              <MappingFragment StoreEntitySet="TestCaseParameterCube">
+                <ScalarProperty Name="TestCaseParameterCubeId" ColumnName="TestCaseParameterCubeId" />
+                <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
+                <ScalarProperty Name="SqlTableName" ColumnName="SqlTableName" />
+                <ScalarProperty Name="MdxCubeName" ColumnName="MdxCubeName" />
+                <ScalarProperty Name="CubeTableName" ColumnName="CubeTableName" />
+                <ScalarProperty Name="CubeColumnName" ColumnName="CubeColumnName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParametersForCubeScenariosAssociatedTables">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParametersForCubeScenariosAssociatedTable">
+              <MappingFragment StoreEntitySet="TestCaseParametersForCubeScenariosAssociatedTable">
+                <ScalarProperty Name="TestCaseParametersForCubeScenariosAssociatedId" ColumnName="TestCaseParametersForCubeScenariosAssociatedId" />
+                <ScalarProperty Name="TestCaseParameterForCubeScenariosId" ColumnName="TestCaseParameterForCubeScenariosId" />
+                <ScalarProperty Name="Parameter1" ColumnName="Parameter1" />
+                <ScalarProperty Name="Parameter2" ColumnName="Parameter2" />
+                <ScalarProperty Name="Parameter3" ColumnName="Parameter3" />
+                <ScalarProperty Name="Parameter4" ColumnName="Parameter4" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParametersForQvtValidationAssociatedTables">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParametersForQvtValidationAssociatedTable">
+              <MappingFragment StoreEntitySet="TestCaseParametersForQvtValidationAssociatedTable">
+                <ScalarProperty Name="TestCaseParametersForQvtValidationAssociatedTableId" ColumnName="TestCaseParametersForQvtValidationAssociatedTableId" />
+                <ScalarProperty Name="TestCaseParameterQvtValidationExceptionId" ColumnName="TestCaseParameterQvtValidationExceptionId" />
+                <ScalarProperty Name="Parameter1" ColumnName="Parameter1" />
+                <ScalarProperty Name="Parameter2" ColumnName="Parameter2" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseParametersForWwicExceptionalAssociatedTables">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseParametersForWwicExceptionalAssociatedTable">
+              <MappingFragment StoreEntitySet="TestCaseParametersForWwicExceptionalAssociatedTable">
+                <ScalarProperty Name="TestCaseParametersForWwicAssociatedTableId" ColumnName="TestCaseParametersForWwicAssociatedTableId" />
+                <ScalarProperty Name="TestCaseParameterForWwicExceptionalId" ColumnName="TestCaseParameterForWwicExceptionalId" />
+                <ScalarProperty Name="Parameter1" ColumnName="Parameter1" />
+                <ScalarProperty Name="Parameter2" ColumnName="Parameter2" />
+                <ScalarProperty Name="Parameter3" ColumnName="Parameter3" />
+                <ScalarProperty Name="Parameter4" ColumnName="Parameter4" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCaseResultTypes">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseResultType">
+              <MappingFragment StoreEntitySet="TestCaseResultType">
+                <ScalarProperty Name="TestCaseResultTypeId" ColumnName="TestCaseResultTypeId" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+                <ScalarProperty Name="ResultTypeDescription" ColumnName="ResultTypeDescription" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestInstances">
+            <EntityTypeMapping TypeName="ValidationDBModel1.TestInstance">
+              <MappingFragment StoreEntitySet="TestInstance">
+                <ScalarProperty Name="TestInstanceId" ColumnName="TestInstanceId" />
+                <ScalarProperty Name="TestInstanceDateKey" ColumnName="TestInstanceDateKey" />
+                <ScalarProperty Name="TestInstanceName" ColumnName="TestInstanceName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsMailSent" ColumnName="IsMailSent" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_AddTestCase" FunctionName="ValidationDBModel1.Store.usp_AddTestCase" />
+          <FunctionImportMapping FunctionImportName="usp_AdminAdd" FunctionName="ValidationDBModel1.Store.usp_AdminAdd" />
+          <FunctionImportMapping FunctionImportName="usp_EditornAdd" FunctionName="ValidationDBModel1.Store.usp_EditornAdd" />
+          <FunctionImportMapping FunctionImportName="usp_ExecutornAdd" FunctionName="ValidationDBModel1.Store.usp_ExecutornAdd" />
+          <FunctionImportMapping FunctionImportName="usp_ManagerAdd" FunctionName="ValidationDBModel1.Store.usp_ManagerAdd" />
+          <FunctionImportMapping FunctionImportName="usp_OperatorAdd" FunctionName="ValidationDBModel1.Store.usp_OperatorAdd" />
+          <FunctionImportMapping FunctionImportName="usp_RegisterUser" FunctionName="ValidationDBModel1.Store.usp_RegisterUser" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

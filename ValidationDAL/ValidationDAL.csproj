@@ -55,74 +55,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ad.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Admin.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetRole.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUser.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Asset.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AutoTest.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AutoTestLog.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DALRepository.cs" />
     <Compile Include="Editor.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Event.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Executor.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="FacilitySite.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="LocalDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocalDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocalDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Manager.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Operator.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="PipelineStage.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scheduler.cs">
+      <DependentUpon>LocalDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="ServerModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -138,140 +111,95 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ServerModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="SM.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SMT.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="TestCase.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestCaseCubeResultLog.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseLog.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestCaseLogDataFreshness.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestCaseLogEvent.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestCaseLogForAccrualDailyDateCheck.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestCaseLogQvtValidation.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestCaseLogRowCount.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestCaseLogUnmatchedValue.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterAccountCheck.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterCube.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterCubeRevenueAllUp.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterCubeRevenueAllUpsByDimension.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterForAccrualDailyDateCheck.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterForCubeScenario.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterForeignKey.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterForFreshnessCheck.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterForWwic.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterForWwicExceptional.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterPrimaryKey.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterQvtValidation.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterQvtValidationException.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterRowCount.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterRowCountExceptional.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParametersForCubeScenariosAssociatedTable.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParametersForQvtValidationAssociatedTable.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParametersForWwicExceptionalAssociatedTable.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseParameterValueCheck.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseResultType.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestCaseType.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestInstance.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TestSuite.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="testsuitenotification.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ValidationModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ValidationModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ValidationModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationModel.edmx</DependentUpon>
+      <DependentUpon>LocalDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Model1.edmx">
+    <EntityDeploy Include="LocalDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <None Include="LocalDB.edmx.diagram">
+      <DependentUpon>LocalDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <EntityDeploy Include="ServerModel.edmx">
@@ -281,24 +209,17 @@
     <None Include="ServerModel.edmx.diagram">
       <DependentUpon>ServerModel.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="ValidationModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ValidationModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ValidationModel.edmx.diagram">
-      <DependentUpon>ValidationModel.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model1.Context.tt">
+    <Content Include="LocalDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>LocalDB.edmx</DependentUpon>
+      <LastGenOutput>LocalDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model1.tt">
+    <Content Include="LocalDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>LocalDB.edmx</DependentUpon>
+      <LastGenOutput>LocalDB.cs</LastGenOutput>
     </Content>
     <Content Include="ServerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -309,16 +230,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ServerModel.edmx</DependentUpon>
       <LastGenOutput>ServerModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="ValidationModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ValidationModel.edmx</DependentUpon>
-      <LastGenOutput>ValidationModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ValidationModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ValidationModel.edmx</DependentUpon>
-      <LastGenOutput>ValidationModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ValidationDBModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+    <Property Name="FullName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.Editor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Editor">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+    <Property Name="FullName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="TaskID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="100" />
+    <Property Name="Start" Type="datetime" />
+    <Property Name="End" Type="datetime" />
+    <Property Name="StartTimezone" Type="datetime" />
+    <Property Name="EndTimezone" Type="datetime" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="RecurrenceID" Type="int" />
+    <Property Name="RecurrenceRule" Type="varchar" MaxLength="100" />
+    <Property Name="RecurrenceException" Type="int" />
+    <Property Name="IsAllDay" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.Executor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Executor">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+    <Property Name="FullName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Manager">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+    <Property Name="FullName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Operator">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="100" />
+    <Property Name="FullName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="PipelineStage">
+    <Key>
+      <PropertyRef Name="PipelineStageId" />
+    </Key>
+    <Property Name="PipelineStageId" Type="int" Nullable="false" />
+    <Property Name="PipelineStage" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="PipelineStageDescription" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Scheduler">
+    <Key>
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="TaskID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Start" Type="datetime" Nullable="false" />
+    <Property Name="End" Type="datetime" Nullable="false" />
+    <Property Name="StartTimezone" Type="varchar" MaxLength="50" />
+    <Property Name="EndTimezone" Type="varchar" MaxLength="50" />
+    <Property Name="RecurrenceRule" Type="varchar" MaxLength="100" />
+    <Property Name="RecurrenceID" Type="int" />
+    <Property Name="RecurrenceException" Type="varchar" MaxLength="100" />
+    <Property Name="IsAllDay" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.SM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="SMT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TestCase">
+    <Key>
+      <PropertyRef Name="TestCaseId" />
+    </Key>
+    <Property Name="TestCaseId" Type="int" Nullable="false" />
+    <Property Name="TestSuiteId" Type="int" Nullable="false" />
+    <Property Name="PipelineStageId" Type="int" Nullable="false" />
+    <Property Name="TestCaseTypeId" Type="int" Nullable="false" />
+    <Property Name="TestCaseName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsObsolete" Type="bit" Nullable="false" />
+    <Property Name="ObsoleteReason" Type="varchar" MaxLength="300" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TestCaseLog">
+    <Key>
+      <PropertyRef Name="TestCaseLogId" />
+      <PropertyRef Name="TestInstanceId" />
+      <PropertyRef Name="TestCaseId" />
+    </Key>
+    <Property Name="TestCaseLogId" Type="int" Nullable="false" />
+    <Property Name="TestInstanceId" Type="int" Nullable="false" />
+    <Property Name="TestCaseId" Type="int" Nullable="false" />
+    <Property Name="ResultType" Type="int" />
+    <Property Name="EventStartTime" Type="datetime" />
+    <Property Name="EventEndTime" Type="datetime" />
+    <Property Name="Exception" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestCaseResultType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TestCaseResultType">
+    <Key>
+      <PropertyRef Name="TestCaseResultTypeId" />
+      <PropertyRef Name="ResultType" />
+    </Key>
+    <Property Name="TestCaseResultTypeId" Type="int" Nullable="false" />
+    <Property Name="ResultType" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ResultTypeDescription" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TestCaseType">
+    <Key>
+      <PropertyRef Name="TestCaseTypeId" />
+    </Key>
+    <Property Name="TestCaseTypeId" Type="int" Nullable="false" />
+    <Property Name="TestCaseType" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TestCaseTypeDescription" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TestInstance">
+    <Key>
+      <PropertyRef Name="TestInstanceId" />
+      <PropertyRef Name="TestInstanceName" />
+      <PropertyRef Name="IsMailSent" />
+    </Key>
+    <Property Name="TestInstanceId" Type="int" Nullable="false" />
+    <Property Name="TestInstanceDateKey" Type="int" />
+    <Property Name="TestInstanceName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="500" />
+    <Property Name="IsMailSent" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TestSuite">
+    <Key>
+      <PropertyRef Name="TestSuiteId" />
+    </Key>
+    <Property Name="TestSuiteId" Type="int" Nullable="false" />
+    <Property Name="TestSuite" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestSuiteDescription" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TestSuiteOwner" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="testsuitenotification">
+    <Key>
+      <PropertyRef Name="TestSuiteId" />
+    </Key>
+    <Property Name="TestSuiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestSuite" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestSuiteDescription" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="TestSuiteOwner" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fullName" Type="varchar" MaxLength="50" />
+    <Property Name="userName" Type="varchar" MaxLength="50" />
+    <Property Name="userEmail" Type="varchar" MaxLength="50" />
+    <Property Name="userPassword" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="fk_pipelineStageId">
+    <End Role="PipelineStage" Type="Self.PipelineStage" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PipelineStage">
+        <PropertyRef Name="PipelineStageId" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="PipelineStageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_testCasetypeId">
+    <End Role="TestCaseType" Type="Self.TestCaseType" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestCaseType">
+        <PropertyRef Name="TestCaseTypeId" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TestCaseTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_testSuiteId">
+    <End Role="TestSuite" Type="Self.TestSuite" Multiplicity="1" />
+    <End Role="TestCase" Type="Self.TestCase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestSuite">
+        <PropertyRef Name="TestSuiteId" />
+      </Principal>
+      <Dependent Role="TestCase">
+        <PropertyRef Name="TestSuiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_AddTestCase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TestSuiteId" Type="int" Mode="In" />
+    <Parameter Name="PipeLineStageId" Type="int" Mode="In" />
+    <Parameter Name="TestCaseTypeId" Type="int" Mode="In" />
+    <Parameter Name="TestCaseName" Type="varchar" Mode="In" />
+    <Parameter Name="Description" Type="varchar" Mode="In" />
+    <Parameter Name="IsActive" Type="bit" Mode="In" />
+    <Parameter Name="IsObsolete" Type="bit" Mode="In" />
+    <Parameter Name="ObsoleteReason" Type="varchar" Mode="In" />
+    <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+    <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_AdminAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fullName" Type="varchar" Mode="In" />
+    <Parameter Name="userName" Type="varchar" Mode="In" />
+    <Parameter Name="userEmail" Type="varchar" Mode="In" />
+    <Parameter Name="userPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_EditornAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fullName" Type="varchar" Mode="In" />
+    <Parameter Name="userName" Type="varchar" Mode="In" />
+    <Parameter Name="userEmail" Type="varchar" Mode="In" />
+    <Parameter Name="userPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ExecutornAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fullName" Type="varchar" Mode="In" />
+    <Parameter Name="userName" Type="varchar" Mode="In" />
+    <Parameter Name="userEmail" Type="varchar" Mode="In" />
+    <Parameter Name="userPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_ManagerAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fullName" Type="varchar" Mode="In" />
+    <Parameter Name="userName" Type="varchar" Mode="In" />
+    <Parameter Name="userEmail" Type="varchar" Mode="In" />
+    <Parameter Name="userPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_OperatorAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fullName" Type="varchar" Mode="In" />
+    <Parameter Name="userName" Type="varchar" Mode="In" />
+    <Parameter Name="userEmail" Type="varchar" Mode="In" />
+    <Parameter Name="userPassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Username" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="ValidationDBModel2StoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Operator" EntityType="Self.Operator" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PipelineStage" EntityType="Self.PipelineStage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SMT" EntityType="Self.SMT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCase" EntityType="Self.TestCase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCaseType" EntityType="Self.TestCaseType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestSuite" EntityType="Self.TestSuite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="testsuitenotification" EntityType="Self.testsuitenotification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Editor" EntityType="Self.Editor" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Editor].[UserId] AS [UserId], 
+    [Editor].[UserName] AS [UserName], 
+    [Editor].[Password] AS [Password], 
+    [Editor].[UserEmail] AS [UserEmail], 
+    [Editor].[FullName] AS [FullName]
+    FROM [dbo].[Editor] AS [Editor]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Executor" EntityType="Self.Executor" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Executor].[UserId] AS [UserId], 
+    [Executor].[UserName] AS [UserName], 
+    [Executor].[Password] AS [Password], 
+    [Executor].[UserEmail] AS [UserEmail], 
+    [Executor].[FullName] AS [FullName]
+    FROM [dbo].[Executor] AS [Executor]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="SM" EntityType="Self.SM" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SM].[ID] AS [ID], 
+    [SM].[NAME] AS [NAME]
+    FROM [dbo].[SM] AS [SM]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TestCaseLog" EntityType="Self.TestCaseLog" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TestCaseLog].[TestCaseLogId] AS [TestCaseLogId], 
+    [TestCaseLog].[TestInstanceId] AS [TestInstanceId], 
+    [TestCaseLog].[TestCaseId] AS [TestCaseId], 
+    [TestCaseLog].[ResultType] AS [ResultType], 
+    [TestCaseLog].[EventStartTime] AS [EventStartTime], 
+    [TestCaseLog].[EventEndTime] AS [EventEndTime], 
+    [TestCaseLog].[Exception] AS [Exception], 
+    [TestCaseLog].[CreatedDate] AS [CreatedDate], 
+    [TestCaseLog].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseLog] AS [TestCaseLog]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TestCaseResultType" EntityType="Self.TestCaseResultType" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TestCaseResultType].[TestCaseResultTypeId] AS [TestCaseResultTypeId], 
+    [TestCaseResultType].[ResultType] AS [ResultType], 
+    [TestCaseResultType].[ResultTypeDescription] AS [ResultTypeDescription], 
+    [TestCaseResultType].[CreatedDate] AS [CreatedDate], 
+    [TestCaseResultType].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestCaseResultType] AS [TestCaseResultType]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TestInstance" EntityType="Self.TestInstance" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TestInstance].[TestInstanceId] AS [TestInstanceId], 
+    [TestInstance].[TestInstanceDateKey] AS [TestInstanceDateKey], 
+    [TestInstance].[TestInstanceName] AS [TestInstanceName], 
+    [TestInstance].[Description] AS [Description], 
+    [TestInstance].[IsMailSent] AS [IsMailSent], 
+    [TestInstance].[CreatedDate] AS [CreatedDate], 
+    [TestInstance].[CreatedBy] AS [CreatedBy]
+    FROM [dbo].[TestInstance] AS [TestInstance]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_pipelineStageId" Association="Self.fk_pipelineStageId">
+      <End Role="PipelineStage" EntitySet="PipelineStage" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="fk_testCasetypeId" Association="Self.fk_testCasetypeId">
+      <End Role="TestCaseType" EntitySet="TestCaseType" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+    <AssociationSet Name="fk_testSuiteId" Association="Self.fk_testSuiteId">
+      <End Role="TestSuite" EntitySet="TestSuite" />
+      <End Role="TestCase" EntitySet="TestCase" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="caf9f97b8d5942e6b31885a3016e0aec" Name="Diagram1">
+        <EntityTypeShape EntityType="ValidationDBModel1.Admin" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.Event" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.Manager" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.Operator" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.PipelineStage" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.Scheduler" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCase" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterAccountCheck" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterCubeRevenueAllUp" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterCubeRevenueAllUpsByDimension" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterForAccrualDailyDateCheck" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterForCubeScenario" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterForeignKey" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterForFreshnessCheck" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterForWwic" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterForWwicExceptional" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterPrimaryKey" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterQvtValidation" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterQvtValidationException" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterRowCount" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterRowCountExceptional" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterValueCheck" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseType" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestSuite" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.User" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.Editor" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.Executor" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseLog" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParameterCube" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParametersForCubeScenariosAssociatedTable" Width="1.5" PointX="14.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParametersForQvtValidationAssociatedTable" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseParametersForWwicExceptionalAssociatedTable" Width="1.5" PointX="14.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestCaseResultType" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValidationDBModel1.TestInstance" Width="1.5" PointX="4.75" PointY="16.75" IsExpanded="true" />
+        <AssociationConnector Association="ValidationDBModel1.fk_pipelineStageId" ManuallyRouted="false" />
+        <AssociationConnector Association="ValidationDBModel1.fk_testCasetypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="ValidationDBModel1.fk_testSuiteId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

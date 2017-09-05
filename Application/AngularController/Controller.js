@@ -383,11 +383,11 @@ app.controller('LoginController', function ($rootScope, $scope, LoginService) {
         $rootScope.loadingimage = true;
         $scope.Submited = true;
         if (true) {
-
+            debugger
             LoginService.getUserDetails($scope.UserModel).then(function (d) {
                 debugger;
                 if (d.data==1) {
-                    //location.href = "/Validation/Dashboard2";   
+                    location.href = "/Validation/Dashboard2";   
                     $rootScope.loadingimage = false;
                 }
                 else if(d.data==0) {

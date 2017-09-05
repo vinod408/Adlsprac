@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Schedule the Event";
+    Layout = "~/Views/Shared/_EventLayout.cshtml";
+}
+
+<h3>Schedule the Event</h3>
+
+
+<div id="scheduler"></div>
+
+<script id="event-title" type="text/x-kendo-template">
+Schedule for TestcaseID: @ViewBag.id
+</script>
+<script id="event-desc" type="text/x-kendo-template">
+Run-@ViewBag.desc
+</script>
+<script>
+    $(function() {
+        $("#scheduler").kendoScheduler({
+            date: new Date(),
+            editable: {
+                confirmation: "Are you sure you want to delete this!!?"
+            },
+            height: 410,
+            width: 680,
+            views: [
+               "day",
+               { type: "day",selected: true },
+               "week",
+               "month",
+            ],
+            dataSource: {
+                batch: true,
+                transport: {
+                    read: {
+                        url: "@Url.Action("GetCalendarEvents", "Validation")",
+                        dataType: "jsonp"
+                    },
+                    update: {
+                        url: "@Url.Action("UpdateEvent", "Validation")",
+                        dataType: "jsonp"
+                    },
+                    create: {
+                        url: "@Url.Action("SaveEvent", "Validation")",
+                        dataType: "jsonp",
+                        complete: function (e) {
+                            $("#scheduler").data("kendoScheduler").dataSource.read();
+                        }
+                    },
+                    destroy: {
+                        url: "@Url.Action("DeleteEvent", "Validation")",
+                        dataType: "jsonp"
+                    },
+                    parameterMap: function(options,operation) {
+                        if (operation !== "read" && options.models) {
+                            return { models: kendo.stringify(options.models) };
+                        }
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "taskId",
+                        fields: {
+                            taskId: { from: "TaskID",type: "number" },
+                            title: { from: "Title", defaultValue: $("#event-title").html(), validation: { required: true } },
+                            start: { type: "date",from: "Start" },
+                            end: { type: "date",from: "End" },
+                            startTimezone: { from: "StartTimezone" },
+                            endTimezone: { from: "EndTimezone" },
+                            description: { from: "Description", defaultValue: $("#event-desc").html(), validation: { required: true } },
+                            recurrenceId: { from: "RecurrenceID" },
+                            recurrenceRule: { from: "RecurrenceRule" },
+                            recurrenceException: { from: "RecurrenceException" },
+                            isAllDay: { type: "boolean",from: "IsAllDay" }
+                        }
+                    }
+                },
+            }
+        });
+    });
+</script>

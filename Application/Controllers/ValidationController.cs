@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Application.ValAutoMapper;
 using ValidationDAL;
+using System.Web.Script.Serialization;
 namespace Application.Controllers
 {
     public class ValidationController : Controller
@@ -28,6 +29,8 @@ namespace Application.Controllers
         }
         public ActionResult Table()
         {
+            GetTestCaseTypeDetails();
+            GetPipeLinestageDetails();
             return View();
         }
         public ActionResult gijgopartial()
@@ -39,6 +42,20 @@ namespace Application.Controllers
         {
 
             return PartialView("_kendopartial");
+        }
+        public ActionResult Scheduler()
+        {
+            return View();
+        }
+        public ActionResult Schedulerwindow()
+        {
+            ViewBag.id=Request.QueryString["id"];
+            ViewBag.desc = Request.QueryString["desc"];
+            return View();
+        }
+        public ActionResult _schedulerpartial()
+        {
+            return View();
         }
 
         public JsonResult RegisterAdmin(Models.Admin admin)
@@ -76,10 +93,10 @@ namespace Application.Controllers
             var dalObj = new DALRepository();
 
             var loginData = dalObj.GetAdminCredentials(mapperObj.Translate(user));
-            Session["userName"] = loginData.UserName;
-            Session["Role"] = "Admin";
             if(loginData!=null)
             {
+                Session["userName"] = loginData.UserName;
+                Session["Role"] = "Admin";
                 status = 1;   
             }
             return Json(status, JsonRequestBehavior.AllowGet);
@@ -125,6 +142,7 @@ namespace Application.Controllers
                     stages.Add(mapperObj.Translate(ts));
                 }
                 var data = stages.ToList();
+                ViewBag.pipelinelist = data;
                 var pageSize = data.Count();
                 return Json(new { data, pageSize }, JsonRequestBehavior.AllowGet);
             }
@@ -222,6 +240,7 @@ namespace Application.Controllers
                     testSuites.Add(mapperObj.Translate(ts));
                 }
                 var data = testSuites.ToList();
+                ViewBag.testsuiteslist = data;
                 var pageSize = data.Count();
                 return Json(new { data, pageSize }, JsonRequestBehavior.AllowGet);
             }
@@ -433,6 +452,7 @@ namespace Application.Controllers
                 }
             }
             var data = records.ToList();
+           
             var pageSize = data.Count();
             return Json(new { data, pageSize }, JsonRequestBehavior.AllowGet);
         }
@@ -646,15 +666,16 @@ namespace Application.Controllers
         {
             ValidationMapper<TestCaseType, Models.TestCaseType> mapperObj = new ValidationMapper<TestCaseType, Models.TestCaseType>();
             var dalObj = new DALRepository();
-            var testSuiteList = dalObj.GetTestCaseTypes();
-            var testSuites = new List<Models.TestCaseType>();
-            if (testSuiteList.Any())
+            var lst = dalObj.GetTestCaseTypes();
+            var typelst = new List<Models.TestCaseType>();
+            if (lst.Any())
             {
-                foreach (var ts in testSuiteList)
+                foreach (var ts in lst)
                 {
-                    testSuites.Add(mapperObj.Translate(ts));
+                    typelst.Add(mapperObj.Translate(ts));
                 }
-                var data = testSuites.ToList();
+                var data = typelst.ToList();
+                ViewBag.testCasetypelist = data;
                 var pageSize = data.Count();
                 return Json(new { data, pageSize }, JsonRequestBehavior.AllowGet);
             }
@@ -664,10 +685,10 @@ namespace Application.Controllers
         }
         public JsonResult GetCalendarEvents()
         {
-            ValidationMapper<Event, Models.Event> mapperObj = new ValidationMapper<Event, Models.Event>();
+            ValidationMapper<Scheduler, Models.TaskViewModel> mapperObj = new ValidationMapper<Scheduler, Models.TaskViewModel>();
             var dalObj = new DALRepository();
-            var testSuiteList = dalObj.GetEvents();
-            var testSuites = new List<Models.Event>();
+            var testSuiteList = dalObj.GetSchedulerEvents();
+            var testSuites = new List<Models.TaskViewModel>();
             if (testSuiteList.Any())
             {
                 foreach (var ts in testSuiteList)
@@ -676,69 +697,100 @@ namespace Application.Controllers
                 }
                 var data = testSuites.ToList();
 
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data);
             }
             return null;
 
 
         }
-        [HttpPost]
-        public JsonResult UpdateCalendarEvent(Models.Event data)
+       
+        public virtual ActionResult SaveEvent()
         {
-           
-            int result = 0; bool status = false;
-            try
+            var tasks = this.DeserializeObject<IEnumerable<Models.TaskViewModel>>("models").FirstOrDefault();
+
+            if (tasks != null)
             {
-                ValidationMapper<Models.Event, Event> mapperObj = new ValidationMapper<Models.Event, Event>();
-                var dalObj = new DALRepository();
-                result = dalObj.SaveEvent(mapperObj.Translate(data));
-                if (result == 1)
+                int result = 0; bool status = false;
+                try
                 {
-                    status = true;
+                    ValidationMapper<Models.TaskViewModel, Scheduler> mapperObj = new ValidationMapper<Models.TaskViewModel, Scheduler>();
+                    var dalObj = new DALRepository();
+                    result = dalObj.SaveSchedularEvent(mapperObj.Translate(tasks));
+                    if (result == 1)
+                    {
+                        return this.Jsonp(tasks);
+                    }
+                    else
+                    {
+                        return Content("<script language='javascript' type='text/javascript'>alert('Error Occured');</script>");
+                    }
                 }
-                return Json(new { success = status });
+                catch
+                {
+                    return Json(new { success = status });
+                }
             }
-            catch
-            {
-                return Json(new { success = status });
-            }
+
+            return this.Jsonp(tasks);
         }
-        public JsonResult SaveCalendarEvent(Models.Event eve)
+
+        public virtual ActionResult UpdateEvent()
         {
-            int result = 0; bool status = false;
-            try
+            var tasks = this.DeserializeObject<IEnumerable<Models.TaskViewModel>>("models").FirstOrDefault();
+            if (tasks != null)
             {
-                ValidationMapper<Models.Event, Event> mapperObj = new ValidationMapper<Models.Event, Event>();
-                var dalObj = new DALRepository();
-                result = dalObj.SaveEvent(mapperObj.Translate(eve));
-                if (result == 1)
+                int result = 0; bool status = false;
+                try
                 {
-                    status = true;
+                    ValidationMapper<Models.TaskViewModel, Scheduler> mapperObj = new ValidationMapper<Models.TaskViewModel, Scheduler>();
+                    var dalObj = new DALRepository();
+                    result = dalObj.UpdateSchedularEvent(mapperObj.Translate(tasks));
+                    if (result == 1)
+                    {
+                        return this.Jsonp(tasks);
+                    }
+                    else
+                    {
+                        return Content("<script language='javascript' type='text/javascript'>alert('Error Occured');</script>");
+                    }
                 }
-                return Json(new { success = status });
+                catch
+                {
+                    return Json(new { success = status });
+                }
             }
-            catch
-            {
-                return Json(new { success = status });
-            }
+
+            return this.Jsonp(tasks);
         }
-        public JsonResult DeleteCalendarEvent(Models.Event eve)
+        public virtual ActionResult DeleteEvent()
         {
-            int result = 0; bool status = false;
-            try
+
             {
-                ValidationMapper<Models.Event, Event> mapperObj = new ValidationMapper<Models.Event, Event>();
-                var dalObj = new DALRepository();
-                result = dalObj.DeleteEvent(eve.TaskID);
-                if (result == 1)
+                var tasks = this.DeserializeObject<IEnumerable<Models.TaskViewModel>>("models").FirstOrDefault();
+                if (tasks != null)
                 {
-                    status = true;
+                    int result = 0; bool status = false;
+                    try
+                    {
+                        ValidationMapper<Models.TaskViewModel, Scheduler> mapperObj = new ValidationMapper<Models.TaskViewModel, Scheduler>();
+                        var dalObj = new DALRepository();
+                        result = dalObj.DeleteSchedularEvent(tasks.TaskID);
+                        if (result == 1)
+                        {
+                            return this.Jsonp(tasks);
+                        }
+                        else
+                        {
+                            return Content("<script language='javascript' type='text/javascript'>alert('Error Occured!! Try again later);</script>");
+                        }
+                    }
+                    catch
+                    {
+                        return Json(new { success = status });
+                    }
                 }
-                return Json(new { success = status });
-            }
-            catch
-            {
-                return Json(new { success = status });
+
+                return this.Jsonp(tasks);
             }
         }
 
@@ -746,39 +798,93 @@ namespace Application.Controllers
 
         public JsonResult GetNotificationContacts()
         {
+            var list = 0;
             var notificationRegisterTime = Session["LastUpdated"] != null ? Convert.ToDateTime(Session["LastUpdated"]) : DateTime.Now;
             NotificationComponent NC = new NotificationComponent();
-            var list = NC.GetEvents(notificationRegisterTime);
+            //list= NC.GetEvents(notificationRegisterTime);
             //update session here for get only new added contacts (notification)
             Session["LastUpdate"] = DateTime.Now;
             return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        [HttpPost]
+        public ActionResult SaveRowCountParameters(Models.TestCaseParameterRowCount row)
+        {
+            int result = 0; bool status = false;
+            try
+            {
+                ValidationMapper<Models.TestCaseParameterRowCount, TestCaseParameterRowCount> mapperObj = new ValidationMapper<Models.TestCaseParameterRowCount, TestCaseParameterRowCount>();
+                var dalObj = new DALRepository();
+                result = dalObj.SaveRowCountParams(mapperObj.Translate(row));
+                if (result == 1)
+                {
+                    status = true;
+                }
+                return Json(new { success = status });
+            }
+            catch
+            {
+                return Json(new { success = status });
+            }
+        }
+        public ActionResult SavePrimaryKeyParameters(Models.TestCaseParameterPrimaryKey ppk)
+        {
+            int result = 0; bool status = false;
+            try
+            {
+                ValidationMapper<Models.TestCaseParameterPrimaryKey, TestCaseParameterPrimaryKey> mapperObj = new ValidationMapper<Models.TestCaseParameterPrimaryKey, TestCaseParameterPrimaryKey>();
+                var dalObj = new DALRepository();
+                result = dalObj.SavePrimarykeyParams(mapperObj.Translate(ppk));
+                if (result == 1)
+                {
+                    status = true;
+                }
+                return Json(new { success = status });
+            }
+            catch
+            {
+                return Json(new { success = status });
+            }
+        }
+        public ActionResult SaveFKParameters(Models.TestCaseParameterForeignKey ppk)
+        {
+            int result = 0; bool status = false;
+            try
+            {
+                ValidationMapper<Models.TestCaseParameterForeignKey, TestCaseParameterForeignKey> mapperObj = new ValidationMapper<Models.TestCaseParameterForeignKey, TestCaseParameterForeignKey>();
+                var dalObj = new DALRepository();
+                result = dalObj.SaveFKParams(mapperObj.Translate(ppk));
+                if (result == 1)
+                {
+                    status = true;
+                }
+                return Json(new { success = status });
+            }
+            catch
+            {
+                return Json(new { success = status });
+            }
+        }
+        public ActionResult SaveValueCheckParams(Models.TestCaseParameterValueCheck vc)
+        {
+            int result = 0; bool status = false;
+            try
+            {
+                ValidationMapper<Models.TestCaseParameterValueCheck, TestCaseParameterValueCheck> mapperObj = new ValidationMapper<Models.TestCaseParameterValueCheck, TestCaseParameterValueCheck>();
+                var dalObj = new DALRepository();
+                result = dalObj.SaveValueCheckParams(mapperObj.Translate(vc));
+                if (result == 1)
+                {
+                    status = true;
+                }
+                return Json(new { success = status });
+            }
+            catch
+            {
+                return Json(new { success = status });
+            }
+        }
+        
 
 
         // GET: Validation/Details/5

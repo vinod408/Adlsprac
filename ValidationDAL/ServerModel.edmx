@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ValidationDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ValidationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="UserId" />
@@ -92,6 +92,22 @@ warning 6002: The table/view 'ValidationDB.dbo.Executor' does not have a primary
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Scheduler">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="End" Type="datetime" Nullable="false" />
+          <Property Name="StartTimezone" Type="varchar" MaxLength="50" />
+          <Property Name="EndTimezone" Type="varchar" MaxLength="50" />
+          <Property Name="RecurrenceRule" Type="varchar" MaxLength="100" />
+          <Property Name="RecurrenceID" Type="int" />
+          <Property Name="RecurrenceException" Type="varchar" MaxLength="100" />
+          <Property Name="IsAllDay" Type="bit" />
+        </EntityType>
         <EntityType Name="TestCase">
           <Key>
             <PropertyRef Name="TestCaseId" />
@@ -176,6 +192,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
           <Property Name="TestSuiteOwner" Type="varchar" MaxLength="100" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -269,12 +286,13 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
           <Parameter Name="Username" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
-        <EntityContainer Name="ValidationDBModel1StoreContainer">
+        <EntityContainer Name="ValidationDBModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operator" EntityType="Self.Operator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PipelineStage" EntityType="Self.PipelineStage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scheduler" EntityType="Self.Scheduler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestCase" EntityType="Self.TestCase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestCaseType" EntityType="Self.TestCaseType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestSuite" EntityType="Self.TestSuite" Schema="dbo" store:Type="Tables" />
@@ -347,7 +365,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ValidationDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ValidationDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="UserId" />
@@ -405,6 +423,22 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TestCases" Relationship="Self.fk_pipelineStageId" FromRole="PipelineStage" ToRole="TestCase" />
         </EntityType>
+        <EntityType Name="Scheduler">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="End" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartTimezone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EndTimezone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RecurrenceRule" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RecurrenceID" Type="Int32" />
+          <Property Name="RecurrenceException" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsAllDay" Type="Boolean" />
+        </EntityType>
         <EntityType Name="TestCase">
           <Key>
             <PropertyRef Name="TestCaseId" />
@@ -446,6 +480,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
           <Property Name="TestSuiteOwner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TestCases" Relationship="Self.fk_testSuiteId" FromRole="TestSuite" ToRole="TestCase" />
         </EntityType>
         <EntityType Name="User">
@@ -555,12 +590,13 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ValidationDBContexts" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ValidationDBServer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admin" />
           <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="Managers" EntityType="Self.Manager" />
           <EntitySet Name="Operators" EntityType="Self.Operator" />
           <EntitySet Name="PipelineStages" EntityType="Self.PipelineStage" />
+          <EntitySet Name="Schedulers" EntityType="Self.Scheduler" />
           <EntitySet Name="TestCases" EntityType="Self.TestCase" />
           <EntitySet Name="TestCaseTypes" EntityType="Self.TestCaseType" />
           <EntitySet Name="TestSuites" EntityType="Self.TestSuite" />
@@ -634,9 +670,9 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ValidationDBModel1StoreContainer" CdmEntityContainer="ValidationDBContexts">
+        <EntityContainerMapping StorageEntityContainer="ValidationDBModelStoreContainer" CdmEntityContainer="ValidationDBServer">
           <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="ValidationDBModel1.Admin">
+            <EntityTypeMapping TypeName="ValidationDBModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -647,7 +683,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="ValidationDBModel1.Event">
+            <EntityTypeMapping TypeName="ValidationDBModel.Event">
               <MappingFragment StoreEntitySet="Events">
                 <ScalarProperty Name="TaskID" ColumnName="TaskID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -664,7 +700,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Managers">
-            <EntityTypeMapping TypeName="ValidationDBModel1.Manager">
+            <EntityTypeMapping TypeName="ValidationDBModel.Manager">
               <MappingFragment StoreEntitySet="Manager">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -675,7 +711,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Operators">
-            <EntityTypeMapping TypeName="ValidationDBModel1.Operator">
+            <EntityTypeMapping TypeName="ValidationDBModel.Operator">
               <MappingFragment StoreEntitySet="Operator">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -686,7 +722,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PipelineStages">
-            <EntityTypeMapping TypeName="ValidationDBModel1.PipelineStage">
+            <EntityTypeMapping TypeName="ValidationDBModel.PipelineStage">
               <MappingFragment StoreEntitySet="PipelineStage">
                 <ScalarProperty Name="PipelineStageId" ColumnName="PipelineStageId" />
                 <ScalarProperty Name="PipelineStage1" ColumnName="PipelineStage" />
@@ -696,8 +732,25 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Schedulers">
+            <EntityTypeMapping TypeName="ValidationDBModel.Scheduler">
+              <MappingFragment StoreEntitySet="Scheduler">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="StartTimezone" ColumnName="StartTimezone" />
+                <ScalarProperty Name="EndTimezone" ColumnName="EndTimezone" />
+                <ScalarProperty Name="RecurrenceRule" ColumnName="RecurrenceRule" />
+                <ScalarProperty Name="RecurrenceID" ColumnName="RecurrenceID" />
+                <ScalarProperty Name="RecurrenceException" ColumnName="RecurrenceException" />
+                <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TestCases">
-            <EntityTypeMapping TypeName="ValidationDBModel1.TestCase">
+            <EntityTypeMapping TypeName="ValidationDBModel.TestCase">
               <MappingFragment StoreEntitySet="TestCase">
                 <ScalarProperty Name="TestCaseId" ColumnName="TestCaseId" />
                 <ScalarProperty Name="TestSuiteId" ColumnName="TestSuiteId" />
@@ -714,7 +767,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestCaseTypes">
-            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseType">
+            <EntityTypeMapping TypeName="ValidationDBModel.TestCaseType">
               <MappingFragment StoreEntitySet="TestCaseType">
                 <ScalarProperty Name="TestCaseTypeId" ColumnName="TestCaseTypeId" />
                 <ScalarProperty Name="TestCaseType1" ColumnName="TestCaseType" />
@@ -725,7 +778,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestSuites">
-            <EntityTypeMapping TypeName="ValidationDBModel1.TestSuite">
+            <EntityTypeMapping TypeName="ValidationDBModel.TestSuite">
               <MappingFragment StoreEntitySet="TestSuite">
                 <ScalarProperty Name="TestSuiteId" ColumnName="TestSuiteId" />
                 <ScalarProperty Name="TestSuite1" ColumnName="TestSuite" />
@@ -734,11 +787,12 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
                 <ScalarProperty Name="TestSuiteOwner" ColumnName="TestSuiteOwner" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ValidationDBModel1.User">
+            <EntityTypeMapping TypeName="ValidationDBModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="fullName" ColumnName="fullName" />
@@ -749,7 +803,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Editors">
-            <EntityTypeMapping TypeName="ValidationDBModel1.Editor">
+            <EntityTypeMapping TypeName="ValidationDBModel.Editor">
               <MappingFragment StoreEntitySet="Editor">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -760,7 +814,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Executors">
-            <EntityTypeMapping TypeName="ValidationDBModel1.Executor">
+            <EntityTypeMapping TypeName="ValidationDBModel.Executor">
               <MappingFragment StoreEntitySet="Executor">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -771,7 +825,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestCaseLogs">
-            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseLog">
+            <EntityTypeMapping TypeName="ValidationDBModel.TestCaseLog">
               <MappingFragment StoreEntitySet="TestCaseLog">
                 <ScalarProperty Name="TestCaseLogId" ColumnName="TestCaseLogId" />
                 <ScalarProperty Name="TestInstanceId" ColumnName="TestInstanceId" />
@@ -786,7 +840,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestCaseResultTypes">
-            <EntityTypeMapping TypeName="ValidationDBModel1.TestCaseResultType">
+            <EntityTypeMapping TypeName="ValidationDBModel.TestCaseResultType">
               <MappingFragment StoreEntitySet="TestCaseResultType">
                 <ScalarProperty Name="TestCaseResultTypeId" ColumnName="TestCaseResultTypeId" />
                 <ScalarProperty Name="ResultType" ColumnName="ResultType" />
@@ -797,7 +851,7 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestInstances">
-            <EntityTypeMapping TypeName="ValidationDBModel1.TestInstance">
+            <EntityTypeMapping TypeName="ValidationDBModel.TestInstance">
               <MappingFragment StoreEntitySet="TestInstance">
                 <ScalarProperty Name="TestInstanceId" ColumnName="TestInstanceId" />
                 <ScalarProperty Name="TestInstanceDateKey" ColumnName="TestInstanceDateKey" />
@@ -809,13 +863,13 @@ warning 6002: The table/view 'ValidationDB.dbo.TestInstance' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_AddTestCase" FunctionName="ValidationDBModel1.Store.usp_AddTestCase" />
-          <FunctionImportMapping FunctionImportName="usp_AdminAdd" FunctionName="ValidationDBModel1.Store.usp_AdminAdd" />
-          <FunctionImportMapping FunctionImportName="usp_EditornAdd" FunctionName="ValidationDBModel1.Store.usp_EditornAdd" />
-          <FunctionImportMapping FunctionImportName="usp_ExecutornAdd" FunctionName="ValidationDBModel1.Store.usp_ExecutornAdd" />
-          <FunctionImportMapping FunctionImportName="usp_ManagerAdd" FunctionName="ValidationDBModel1.Store.usp_ManagerAdd" />
-          <FunctionImportMapping FunctionImportName="usp_OperatorAdd" FunctionName="ValidationDBModel1.Store.usp_OperatorAdd" />
-          <FunctionImportMapping FunctionImportName="usp_RegisterUser" FunctionName="ValidationDBModel1.Store.usp_RegisterUser" />
+          <FunctionImportMapping FunctionImportName="usp_AddTestCase" FunctionName="ValidationDBModel.Store.usp_AddTestCase" />
+          <FunctionImportMapping FunctionImportName="usp_AdminAdd" FunctionName="ValidationDBModel.Store.usp_AdminAdd" />
+          <FunctionImportMapping FunctionImportName="usp_EditornAdd" FunctionName="ValidationDBModel.Store.usp_EditornAdd" />
+          <FunctionImportMapping FunctionImportName="usp_ExecutornAdd" FunctionName="ValidationDBModel.Store.usp_ExecutornAdd" />
+          <FunctionImportMapping FunctionImportName="usp_ManagerAdd" FunctionName="ValidationDBModel.Store.usp_ManagerAdd" />
+          <FunctionImportMapping FunctionImportName="usp_OperatorAdd" FunctionName="ValidationDBModel.Store.usp_OperatorAdd" />
+          <FunctionImportMapping FunctionImportName="usp_RegisterUser" FunctionName="ValidationDBModel.Store.usp_RegisterUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
